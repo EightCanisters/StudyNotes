@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    /* 支持Chrome和Firefox使用, edge和ie不适用 */
+    input::placeholder {
+      color: red;
+    }
+
+    /* 只对firefox生效 */
+    /* input::-moz-placeholder {
+      color: red;
+    } */
+
+    /* 对chrome和edge生效，firefox不生效 */
+    input::-webkit-input-placeholder {
+      color: red;
+    }
+
+  </style>
+</head>
+<body>
+  <input type="text" placeholder="placeholder">
+</body>
+</html>

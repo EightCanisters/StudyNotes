@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <!-- 引入的js必须有一定的顺序 -->
+  <script type="text/javascript" src="jqyery-1.10.1.js"></script>
+  <script type="text/javascript" src="module.js"></script>
+  <script type="text/javascript">
+    myModule.foo();
+    myModule.bar();
+    console.log(myModule.data);
+    myModule.data = 'data'; //不是修改的模块内部的data
+    myModule.foo(); //没有改变
+  </script>
+</body>
+</html>

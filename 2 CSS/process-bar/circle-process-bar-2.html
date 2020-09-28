@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            box-sizing: border-box;
+        }
+        .progress2 {
+            width: 200px;
+            height: 200px;
+            margin: 100px auto;
+            position: relative;
+            border: 1px solid #ddd;
+        }
+        .rect {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            overflow: hidden;
+        }
+        .right {
+            right: 0;
+        }
+        .left {
+            left: 0;
+        }
+        .circle {
+            width: 200%;
+            height: 100%;
+            border: 20px solid red;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            transform: rotate(45deg);
+        }
+        .rightcircle {
+            border-top: 20px solid blue;
+            border-right: 20px solid blue;
+            right: 0;
+        /* animation: load_right 5s linear infinite; */
+        }
+        .leftcircle{
+            border-bottom:20px solid blue;
+            border-left:20px solid blue;
+            left:0;
+        /* animation: load_left 5s linear infinite; */
+        }
+    /* @keyframes load_right{
+        0%{
+
+            transform: rotate(45deg);
+        }
+        50%{
+
+            transform: rotate(225deg);
+        }
+        100%{
+
+            transform: rotate(225deg);
+        }
+    }
+    @keyframes load_left{
+        0%{
+
+            transform: rotate(45deg);
+        }
+        50%{
+
+            transform: rotate(45deg);
+        }
+        100%{
+            transform: rotate(225deg);
+        }
+    } */
+    </style>
+</head>
+<body>
+    <div class="progress2">
+        <div class="rect right">
+            <div class="circle rightcircle"></div>
+        </div>
+        <div class="rect left">
+            <div class="circle leftcircle"></div>
+        </div>
+    </div>
+</body>
+</html>
+

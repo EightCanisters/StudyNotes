@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+.progress2{
+        width: 200px;
+        height: 200px;
+        margin: 100px auto;
+        position: relative;
+    }
+   
+    .rect{
+        width: 100px;
+        height: 200px;
+        position: absolute;
+        top:0;
+        overflow: hidden;
+    }
+    .right{
+        right:0;
+    }
+    .left{
+        left:0;
+    }
+    .circle{
+        width: 160px;
+        height: 160px;
+        border:20px solid #ccc;
+        border-radius: 50%;
+        position: absolute;
+        top:0;
+        transform: rotate(45deg);
+    }
+    .rightcircle{
+        border-top:20px solid blue;
+        border-right:20px solid blue;
+        right:0;
+        transform: rotate(-63deg);
+        transition: all ease .5s;
+    }
+    .leftcircle{
+        /* border-bottom:20px solid #ccc; */
+        border-bottom:20px solid blue;
+        /* border-left:20px solid #ccc; */
+        border-left:20px solid blue;
+        left:0;
+        animation: load_left 5s linear infinite;
+        transition: all ease .5s;
+        transform: rotate(-135deg);
+    }
+    .dsl{
+        transform: rotate(-99deg);
+    }
+    .dsl2{
+        transform: rotate(-27deg);
+    }
+    .dsl3{
+        transform: rotate(45deg);
+    }
+    .ds{
+        transform: rotate(9deg);
+    }
+    .ds2{
+        transform: rotate(45deg);
+    }
+    </style>
+</head>
+
+<body>
+    <div class="progress2">
+        <div class="rect right">
+            <div class="circle rightcircle"></div>
+        </div>
+        <div class="rect left">
+            <div class="circle leftcircle"></div>
+        </div>
+    </div>
+    <button id="btn">测试</button>
+    <button id="btn2">测试2</button>
+    <button id="btn3">测试3</button>
+    <button id="btn4">测试4</button>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    $('#btn').click(function(){
+        $('.rightcircle').addClass('ds')
+    })
+    $('#btn2').click(function(){
+        $('.rightcircle').addClass('ds2')
+        setTimeout(function(){
+            $('.leftcircle').addClass('dsl')
+        },490)
+    })
+    $('#btn3').click(function(){
+        $('.leftcircle').addClass('dsl2')
+    })
+    $('#btn4').click(function(){
+        $('.leftcircle').addClass('dsl3')
+    })
+</script>
+</html>

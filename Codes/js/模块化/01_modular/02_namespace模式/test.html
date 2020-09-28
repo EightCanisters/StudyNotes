@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript" src="./module1.js"></script>
+  <script type="text/javascript" src="./module2.js"></script>
+  <script type="text/javascript">
+    myModule.foo(); //module1 foo() module1's data
+    myModule.bar(); //module1 bar() module1's data
+
+    myModule2.foo(); //module2 foo() module2 data
+    myModule2.bar(); //module2 bar() module2 data
+
+    myModule.data = 'changed data';
+    myModule.foo(); //module1 foo() changed data
+    myModule.bar(); //module1 bar() changed data
+  </script>
+</body>
+</html>
