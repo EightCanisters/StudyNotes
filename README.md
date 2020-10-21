@@ -4,4 +4,4 @@
  - 2 HTML&CSS: 遇到的一些好玩的CSS
  - 3 框架: 包括vue, react，就是学习的笔记
  - 4 Webpack: 学习笔记
- - Codes: 各个学习笔记对应的代码
+ - Others: 杂七杂八的东西，放截图什么的
