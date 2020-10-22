@@ -70,6 +70,7 @@ export class Localization {
   }
 
   public getString(key: LanguageKeys): string {
+    console.log(this.i18nextInstance)
     return this.i18nextInstance.t(key);
   }
 

@@ -1,13 +1,24 @@
+// eslint-disable-next-line
+/// <reference path="./react-app-env.d.ts" />
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { SHAppContext } from './utils/AppContext';
+import { AppContext } from './utils/AppContext';
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
+    interface Window {
+    appContext: AppContext;
+  }
+}
 
 //  Initialize AppContext
-const appContext = new SHAppContext();
-// window.shAppContext = appContext;
+const appContext = new AppContext();
+window.appContext = appContext;
+appContext.initializeAsync();
 
 ReactDOM.render(
   <React.StrictMode>

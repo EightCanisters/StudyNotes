@@ -1,6 +1,6 @@
 import { Localization, LanguageKeys, ICultureItem } from '../locales/localization';
 
-export interface ISHAppContext {
+export interface IAppContext {
   initializeAsync(): Promise<void>;
   getString(key: LanguageKeys): string;
   changeLanguage(locale: string): Promise<void>;
@@ -8,7 +8,7 @@ export interface ISHAppContext {
   getSupportedCultures(): any;
 }
 
-export class SHAppContext implements ISHAppContext {
+export class AppContext implements IAppContext {
 
   private readonly localization: Localization = new Localization();
 

@@ -1,4 +1,6 @@
 {
+  "App-description": "编辑并报错 src/App.tsx 来刷新页面",
+  "App-learn": "学习react",
   "Main-SaveAndContinue": "保存并继续",
   "Main-Insights": "见解",
   "Main-Learning": "学习",

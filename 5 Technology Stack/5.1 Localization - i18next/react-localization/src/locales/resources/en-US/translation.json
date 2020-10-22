@@ -1,4 +1,6 @@
 {
+  "App-description": "Edit src/App.tsx and save to reload.",
+  "App-learn": "Learn React",
   "Main-SaveAndContinue": "Save and Continue",
   "Main-Insights": "Insights",
   "Main-Learning": "Learning",
