@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="main"></div>
+</body>
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+    class Demo extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                value: 0
+            }
+            console.log('constructor')
+        }
+        componentDidMount() {
+            console.log('componentDidMount')
+            this.setState({
+                value: 1
+            })
+        } 
+        render() {
+            console.log('render',this.state.value)
+            return <div>{this.state.value}</div>;
+        }
+        componentDidUpdate() {
+            console.log('componentDidUpdate')
+        }
+    }
+    ReactDOM.render(<Demo />, document.querySelector('#main'));
+</script>
+</html>
