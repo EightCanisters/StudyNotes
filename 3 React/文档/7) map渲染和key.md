@@ -1,6 +1,28 @@
-### 1. key介绍
+### 1. map渲染
 
-在使用`map()`渲染多个组件的时候，通常会要求添加key属性。\
+```jsx
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <li key={number.toString()}>
+      {number}
+    </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```
+
+### 2. key介绍
+
+在使用`map()`渲染多个组件的时候，通常会要求添加key属性。
 
 ```jsx
 const numbers = [1, 2, 3, 4, 5];
@@ -11,12 +33,12 @@ const listItems = numbers.map((number) =>
 );
 ```
 
-#### 1.1 key的作用
+#### 2.1 key的作用
 
 ​	帮助 React 识别哪些元素改变了，比如被添加或删除 
 ​	注： key 会传递信息给 React ，但不会传递给你的组件。如果你的组件中需要使用 `key` 属性的值，请用其他属性名显式传递这个值： 
 
-#### 1.2 用什么作为key值
+#### 2.2 用什么作为key值
 
  一个元素的 key 最好是这个元素在列表中拥有的一个独一无二的字符串。
 
@@ -24,7 +46,7 @@ const listItems = numbers.map((number) =>
 -  万不得已时，可以使用元素索引 index 作为 key 
   - 注： 如果列表项目的顺序可能会变化，我们不建议使用索引来用作 key 值，因为这样做会导致性能变差，还可能引起组件状态的问题 
 
-### 2. 用 key 提取组件
+### 3. 用 key 提取组件
 
  元素的 key 只有放在就近的数组上下文中才有意义 
 
@@ -82,7 +104,7 @@ ReactDOM.render(
 );
 ```
 
-### 3. key 只是在兄弟节点之间必须唯一
+### 4. key 只是在兄弟节点之间必须唯一
 
  不需要是全局唯一的 。 当我们生成两个不同的数组时，我们可以使用相同的 key 值 ：
 
