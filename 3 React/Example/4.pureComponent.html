@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="main"></div>
+</body>
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+    class Demo extends React.PureComponent {
+        constructor(props) {
+            super(props);
+            this.state = {
+                value: 0,
+                deepValue: {
+                    value: 1
+                }
+            }
+        }
+        changeValue() {
+            this.setState((state) => {
+                console.log(state)
+                return {
+                    ...state,
+                    value: state.value,
+                    deepValue: Object.assign(state.deepValue, {value: state.deepValue.value + 1})
+                }
+            })
+        }
+
+        render() {
+            console.log('father render')
+            return (
+                <div>
+                    <button onClick={() => this.changeValue()}>修改value</button>
+                    <br/>
+                    父组件渲染：
+                    <div>value: {this.state.value}</div>
+                    <div>deepvalue: {this.state.deepValue.value}</div>
+                    <br/>
+                    子组件渲染：<Chid count={this.state.value} deepCount={this.state.deepValue.value} />
+                </div>
+            );
+        }
+    }
+    class Chid extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+        render() {
+            console.log('child render')
+            return <div>value: {this.props.count} <br/> deepValue: {this.props.deepCount}</div>
+        }
+    }
+    ReactDOM.render(<Demo />, document.querySelector('#main'));
+</script>
+</html>
