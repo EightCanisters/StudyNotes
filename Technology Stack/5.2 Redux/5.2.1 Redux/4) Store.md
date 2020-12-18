@@ -55,4 +55,4 @@ store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED))
 unsubscribe();
 ```
 
-![img](..\..\..\Others\images\store.png)
+![img](../../../Others/images/store.png)
