@@ -1,3 +1,5 @@
+> 原博客：https://blog.usejournal.com/creating-a-react-app-from-scratch-f3c693b84658
+
 ### 1. Setup
 首先，为你的React应用创建一个新目录。然后，用`npm init`初始化你的项目，并在你选择的编辑器中打开它。这也是进行`git init`的好时机。在新项目文件夹中，创建以下结构:
 
@@ -123,3 +125,99 @@ module.exports = {
 
 ### 4. React
 首先，我们需要获得另外两个包:`react@16.5.2`和`react-dom@16.5.2`。继续并将它们保存为常规依赖项。
+
+我们需要告诉React应用在哪里hook进DOM(在`index.html`中)。在您的src目录中创建一个名为`index.js`的文件。这是一个非常小的文件，但对你的React应用来说却有很多作用。
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App.js";
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+`ReactDOM.render`是告诉React渲染什么和在哪里渲染的函数。   
+在本例中，我们正在渲染一个名为`App`的组件(我们很快就会创建它)，它在DOM元素中用ID root进行渲染。
+
+现在，在src中创建另一个名为`App.js`的文件。如果你使用过`create-react-app`来使用React，那么这一部分你应该非常熟悉。这个文件只是一个`React`组件。
+```jsx
+import React, { Component} from "react";
+import "./App.css";
+
+class App extends Component{
+  render(){
+    return(
+      <div className="App">
+        <h1> Hello, World! </h1>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+当我们还在这里的时候，我提到了webpack也处理CSS(我们需要它作为我们的组件)。让我们向src目录添加一个非常简单的样式表。
+```css
+.App {
+  margin: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+你的最终项目结构应该如下所示，除非你在过程中更改了一些名称:
+```
+.
++-- public
+| +-- index.html
++-- src
+| +-- App.css
+| +-- App.js
+| +-- index.js
++-- .babelrc
++-- .gitignore
++-- package-lock.json
++-- package.json
++-- webpack.config.js
+```
+
+我们现在有了一个功能正常的react应用！我们可以通过在终端中执行`webpack-dev-server --mode development`来启动开发服务器。我建议你把它打包在`package.json`里的`start`脚本里，这样可以节省9次按键。
+
+### 5. 完成HMR
+
+如果现在运行服务器，您将注意到您的任何更改实际上都不会在客户机中导致任何事情发生。到底发生了什么事?
+
+HMR需要知道实际要替换什么，目前我们还没有给它任何东西。为此，我们将使用react团队的一位成员提供给我们的一个包:`[react-hot-loader@4.3.11](https://github.com/gaearon/react-hot-loader)`。
+
+您可以根据文档将其作为常规依赖项进行安装。
+
+> 注意:您可以安全地将`react-hot-loader`作为常规依赖项安装，而不是作为dev依赖项安装，因为它可以自动确保它不会在生产环境中执行，而且内存占用最小。
+
+现在，在`App.js`中导入`react-hot-loader`，并通过如下代码修改将导出的对象标记为热重新加载。
+
+```js
+import React, { Component} from "react";
+import {hot} from "react-hot-loader";
+import "./App.css";
+
+class App extends Component{
+  render(){
+    return(
+      <div className="App">
+        <h1> Hello, World! </h1>
+      </div>
+    );
+  }
+}
+
+export default hot(module)(App);
+```
+
+现在当你运行你的应用程序,更改代码并保存后，客户端会立即更新。
+
+### 6. 最后注意项
+在启动项目时，您可能会注意到一些有趣(或令人吃惊)的事情:构建的文件永远不会出现在dist目录中。   
+- 看，`webpack-dev-server`实际上是从内存中提供捆绑的文件——一旦服务器停止，它们就消失了。
+- 要真正构建你的文件，我们要正确地使用webpack。
+  - 在你的`package.json`中添加一个名为`build`的脚本，并给`build`添加：`webpack --mode development`。
+  - 您可以用`production`代替`development`，但如果完全省略`--mode`，它将退回到后者，并向您发出警告。
+
+  这几乎涵盖了你渲染一个基本React应用所需要的一切，而不需要接触`create-react-app`。当然，仍然还有更多的东西需要实现，以使它更完整。例如，图像没有设置为`Webpack`处理，但有一个[加载器](https://webpack.js.org/loaders/file-loader/)，我将把实现留给您。毕竟，如果您不需要或不希望提供文件，那就太臃肿了，不是吗?
