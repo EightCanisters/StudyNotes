@@ -16,6 +16,7 @@ const server = http.createServer((req, res) => {
         } else {
             if(stats && stats.isFile()) {
                 console.log(filePath)
+                res.setHeader('Cache-Control', 'no-cache');
                 const etag = crypto.createHash('md5').update(fs.readFileSync(filePath)).digest('base64');
                 if(req.headers['if-none-match'] == etag) {
                     res.statusCode = 304;

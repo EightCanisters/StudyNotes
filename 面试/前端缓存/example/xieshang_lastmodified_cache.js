@@ -15,7 +15,8 @@ const server = http.createServer((req, res) => {
         } else {
             if(stats && stats.isFile()) {
                 console.log(filePath)
-                const mtime = stats.ctime.toUTCString();
+                res.setHeader('Cache-Control', 'no-cache');
+                const mtime = stats.mtime.toUTCString();
                 if(req.headers['if-modified-since'] == mtime) {
                     res.statusCode = 304;
                     res.end();
