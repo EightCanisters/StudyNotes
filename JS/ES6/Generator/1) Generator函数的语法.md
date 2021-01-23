@@ -65,18 +65,15 @@ function*foo(x, y) { ··· }
 
 - Generator 函数执行后，返回一个遍历器对象。该对象本身也具有`Symbol.iterator`属性，执行后返回自身。
 
-  ```
+```
   function* gen(){
     // some code
-}
+  }
   
   var g = gen();
   
-  g[Symbol.iterator]() === g
-  // true
-  ```
-  
-  
+  g[Symbol.iterator]() === g // true
+```
 
 ### 2. yield表达式
 
