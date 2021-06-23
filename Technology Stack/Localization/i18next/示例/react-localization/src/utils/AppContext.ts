@@ -21,7 +21,7 @@ export class AppContext implements IAppContext {
   }
 
   public changeLanguage(locale: string): Promise<void> {
-    return this.localization.changeLocale(locale);
+    return this.localization.changeLanguage(locale);
   }
 
   public getLanguage(): string {

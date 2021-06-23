@@ -70,11 +70,10 @@ export class Localization {
   }
 
   public getString(key: LanguageKeys): string {
-    console.log(this.i18nextInstance)
     return this.i18nextInstance.t(key);
   }
 
-  public async changeLocale(locale: string): Promise<void> {
+  public async changeLanguage(locale: string): Promise<void> {
     if (!supportedCultures[locale]) {
       const errorMessage = `can't find locale ${locale} in the list of supported locales`;
       throw new Error(errorMessage);

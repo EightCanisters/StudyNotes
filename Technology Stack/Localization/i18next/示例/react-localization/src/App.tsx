@@ -10,7 +10,7 @@ export enum Languages {
 function App() {
   const [currLanguage, setCurrLanguage] = useState(Languages["en-US"]);
 
-  function changeLanguage(): void {
+  function switchLanguage(): void {
     if(currLanguage === Languages["en-US"]) {
       window.appContext.changeLanguage(Languages["zh-CN"]).then(() => {
         setCurrLanguage(Languages["zh-CN"]);
@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
       <h1>当前语言：{currLanguage}</h1>
-      <button onClick={changeLanguage}>切换语言</button>
+      <button onClick={switchLanguage}>切换语言</button>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

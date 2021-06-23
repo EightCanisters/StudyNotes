@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { AppContext } from './AppContext';
-import { StringResources } from '../locales/localization';
+import { Localization, StringResources } from '../locales/localization';
 import { DeepReadonly } from '../types/core-types';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/interface-name-prefix
   interface Window {
-    appContext: AppContext;
+    appContext: Localization;
   }
 }
 
@@ -16,7 +16,7 @@ declare global {
  * this.strings and implements a rendering error boundary with componentDidCatch.
  */
 export abstract class BaseComponent<P = {}, S = {}> extends React.Component<DeepReadonly<P>, S> {
-  public readonly appContext: AppContext = window.appContext;
+  public readonly appContext: Localization = window.appContext;
 
   public getString(key: keyof StringResources): string {
     return this.appContext.getString(key);
@@ -27,6 +27,6 @@ export abstract class BaseComponent<P = {}, S = {}> extends React.Component<Deep
   }
 
   public getLanguage(): string {
-    return this.appContext.getLanguage();
+    return this.appContext.getCurrentLocale();
   }
 }
