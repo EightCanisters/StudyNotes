@@ -1,0 +1,1 @@
+(()=>{"use strict";(()=>{const o=JSON.parse('{"testJson":"test json"}');function s(o,s){return o+s}console.log(o),s(1,2),console.log(s(1,2))})()})();
