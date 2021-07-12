@@ -12,7 +12,7 @@ $ ssh-keygen -t rsa -C "ahuang6328@163.com" -f ~/.ssh/own-github
 
 #### 3. 复制公钥到各网站：
 - 打开C:\Users\v-linxhu\.ssh可以看到生成的ssh：
-![git-ssh](../Others/images/git-ssh.png)
+![git-ssh](../Assets/images/git-ssh.png)
 - 复制公钥到各网站
 
 #### 4. 添加私钥：
