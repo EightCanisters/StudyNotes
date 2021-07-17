@@ -1,23 +1,33 @@
 ## 前言
-最近在做的RN项目中，涉及到了多语言。所以写了这篇文章，权当做一个记录。。。<br />本文分为三块，对应有三个demo：
 
-1. React + [i18next](https://www.i18next.com/)<br />使用react class写法。
-1. React + [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/)<br />使用react class写法。
-1. React Native + [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/) + [react-native-localize](https://github.com/zoontek/react-native-localize)<br />react-native-localize：用于桥接RN App和手机，获取手机系统的语言；<br />此demo将根据手机系统的语言设置进行切换。
+最近在做的RN项目中，涉及到了多语言。所以写了这篇文章，权当做一个记录。。。  
+本文分为三块，对应有三个demo：
+
+1. React + [i18next](https://www.i18next.com/)：使用react class写法。
+1. React + [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/)：使用react class写法。
+1. React Native + [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/) + [react-native-localize](https://github.com/zoontek/react-native-localize)：react-native-localize：用于桥接RN App和手机，获取手机系统的语言；
+
+此demo将根据手机系统的语言设置进行切换。
 
 1, 2的[示例代码](https://github.com/preciousonly/Demos/tree/main/localization/localization-react)；3的[示例代码](https://github.com/preciousonly/Demos/tree/main/localization/localizationRN)。
 
-#### 效果图1，2：
-![动画.gif](https://cdn.nlark.com/yuque/0/2021/gif/5380242/1624778376216-fa512b90-77e0-498d-94df-ab42bd979c34.gif#align=left&display=inline&height=607&margin=%5Bobject%20Object%5D&name=%E5%8A%A8%E7%94%BB.gif&originHeight=808&originWidth=582&size=178332&status=done&style=shadow&width=437)<br />Tip: 这里有一个可能造成困惑的地方：运行起来后，切换示例一中的语言，示例二也会随之改变。是因为两个示例使用的同一个Localization实例，其实这不是一个bug，忽略就好。
+### 效果图1，2
+
+![动画.gif](https://cdn.nlark.com/yuque/0/2021/gif/5380242/1624778376216-fa512b90-77e0-498d-94df-ab42bd979c34.gif#align=left&display=inline&height=607&margin=%5Bobject%20Object%5D&name=%E5%8A%A8%E7%94%BB.gif&originHeight=808&originWidth=582&size=178332&status=done&style=shadow&width=437)  
+Tip: 这里有一个可能造成困惑的地方：运行起来后，切换示例一中的语言，示例二也会随之改变。是因为两个示例使用的同一个Localization实例，其实这不是一个bug，忽略就好。
 
 ## React + [i18next](https://www.i18next.com/)
-#### 1. 安装 i18next
+
+### 1. 安装 i18next
+
 ```bash
 npm install i18next --save
 ```
-#### 2. 代码部分
+
+### 2. 代码部分
 
 - 将本地化的功能放到一个class文件中: `src\locales\localization\index.ts`
+
 ```typescript
 import i18next, { i18n } from 'i18next';
 import { loadResourceBundleAsync } from './helper';
@@ -132,6 +142,7 @@ export class Localization {
 ```
 
 - 使用`React context`将上面的`Localization`实例放到react中去，供全局使用：`src\locales\localeContext`
+
 ```typescript
 // 1. 创建context - src\locales\localeContext\index.ts
 import { createContext } from "react";
@@ -162,6 +173,7 @@ export class LocalizationProvider extends React.Component<ILocalizationProvider>
 ```
 
 - 在项目最外层实例化`Locaization`，并初始化：`src\index.tsx`
+
 ```typescript
 const localization = new Localization();
 localization.initializeAsync().then(() => {
@@ -180,6 +192,7 @@ localization.initializeAsync().then(() => {
 ```
 
 - 组件中应用：`src\App.tsx`
+
 ```typescript
 import React from 'react';
 import cat from './imgs/cat.jpg';
@@ -236,12 +249,16 @@ class App extends React.Component<any, IAppState, any> {
 App.contextType = LocalContext;
 export default App;
 ```
+
 ## React + [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/)
-#### 1. 安装 i18next + react-i18next
+
+### 1. 安装 i18next + react-i18next
+
 ```bash
 npm install react-i18next i18next --save
 ```
-#### 2. 代码部分
+
+### 2. 代码部分
 
 - 在`src\locales\localization\index.ts`中添加下图代码 ，其余保持一致；
 
@@ -249,6 +266,7 @@ npm install react-i18next i18next --save
 
 - 不需要自己创建context；
 - 组件中应用：`src\AppUsingReactI18next.tsx`
+
 ```typescript
 import React from 'react';
 import cat from './imgs/cat.jpg';
@@ -294,16 +312,20 @@ class AppUsingReactI18next extends React.Component<any, IAppUsingReactI18nextSta
 export default withTranslation()(AppUsingReactI18next);
 ```
 
-
 ## React Native + [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/) + [react-native-localize](https://github.com/zoontek/react-native-localize)
+
 做法与上面差不多，需要增加的就是使用`react-native-localize`拿到手机系统设置的语言，配置到`i18next`中去。
-#### 1. 安装 i18next + react-i18next - react-native-localize
+
+### 1. 安装 i18next + react-i18next - react-native-localize
+
 ```bash
 npm install react-i18next i18next react-native-localize --save
 ```
-#### 2. 代码部分
+
+### 2. 代码部分
 
 - 更新`src\locales\localization\index.ts`，组件中使用与 React + [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/) 基本一致。
+
 ```typescript
 import i18next, { i18n } from 'i18next';
 import { loadResourceBundleAsync } from './helper';
@@ -402,5 +424,3 @@ export class Localization {
 
 
 ```
-
-
