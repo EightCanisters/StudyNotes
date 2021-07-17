@@ -1,6 +1,4 @@
-# this指向
-
-## 前言
+## 1. 前言
 
 this也算是面试必问的问题之一了。
 但很多人对this理解得模模糊糊，工作时得打印出来看看才敢往下写，面试时只能回答个大概，细节经不起推敲。
@@ -33,9 +31,9 @@ console.log(window.number);
 ```
 
 答案依次是：```10 9 3 27 20```  
-惊不惊喜，意不意外？如果你比较容易就答对了，那说明你对this的理解还是非常到位的。不然，就跟我一块来看看这篇文章呗~ 这道题的解析在[思考1](#思考1)哦~
+惊不惊喜，意不意外？如果你比较容易就答对了，那说明你对this的理解还是非常到位的。不然，就跟我一块来看看这篇文章呗~ 这道题的解析在[思考1](#41-思考1)哦~
 
-## this是啥？
+## 2. this是啥？
 
 在讨论this的时候，一般都会说“指向xxx”。this就是一个指针，在了解具体指向之前，我们先引入几个名词：
 
@@ -46,7 +44,7 @@ console.log(window.number);
 
 而且它们的**优先级**：```new绑定 > 显示绑定 > 隐式绑定 > 默认绑定```。
 
-### 默认绑定
+### 2.1. 默认绑定
 
 - 在不能应用其它绑定规则时使用，通常是**独立函数调用**。
 - 独立函数：是指在全局上下文中的函数，它的this指向如下：
@@ -66,13 +64,13 @@ getName();
 
 **解析**：调用```getName()```时，它处于全局上下文，应用了默认绑定，this指向全局对象window，所以控制台会打印：```Name: laohuang```。
 
-### 隐式绑定
+### 2.2. 隐式绑定
 
 - 函数的调用是通过某个对象调的，或者说调用位置上存在对象，也即```obj.fn()```；
 - this指向对象属性链中最后一层。比如```obj1.obj2.obj3.fn(), this指向obj3```；
 - 隐式绑定存在绑定丢失的情况。请记住：`obj.fn()`是隐式绑定，但如果`fn()`前啥都没有，属于默认绑定。
 
-#### 典型的```obj.fn```
+#### 2.2.1. 典型的```obj.fn```
 
 ```js
 function getName(){
@@ -88,7 +86,7 @@ laohuang.getName();
 
 **解析**：```getName```函数在```laohuang```外部声明。```laohuang```内部的``getName``相当于做了一次赋值操作。在调用`laohuang.getName()`时，调用位置是laohuang，隐式绑定会把getName里的`this`绑定到`laohuang`上，所以控制台会打印：`Name: laohuang`。
 
-#### this指向对象属性链中最后一层
+#### 2.2.2. this指向对象属性链中最后一层
 
 ```js
 function getName(){
@@ -108,7 +106,7 @@ laohuang.friend.getName();
 
 **解析**：`this`指向对象属性链中最后一层，所以隐式绑定会把`this`绑定到`laohuang.frend`即`feifei`上，所以控制台会打印：`Name: feifei`。
 
-#### 隐式绑定的大陷阱 - 绑定丢失
+#### 2.2.3. 隐式绑定的大陷阱 - 绑定丢失
 
 **1. 绑定丢失 - 将函数的引用给另一变量时：**
 
@@ -125,7 +123,7 @@ var getNameCopy = laohuang.getName;
 getNameCopy();
 ```
 
-**解析**：`var getNameCopy = laohuang.getName`将`getName`的引用赋值给了`getNameCopy`，`getNameCopy`直接指向`getName方法`。`getNameCopy()`前啥都没有，所以它是**隐式绑定**，`this`指向**全局上下文**。所以控制台会打印：`Name: FEHuang`。
+**解析**：`var getNameCopy = laohuang.getName`将`getName`的引用赋值给了`getNameCopy`，`getNameCopy`直接指向`getName方法`。`getNameCopy()`前啥都没有，所以它是**默认绑定**，`this`指向**全局上下文**。所以控制台会打印：`Name: FEHuang`。
 
 **2. 绑定丢失 - 回调函数中：**
 
@@ -159,13 +157,13 @@ setTimeout(function() {
 - `setTimeout(feifei.getName, 1000)`: 这里相当于将`feifei.getName`的引用直接给了`setTimeout`第一个变量，最后执行了这个变量。这里绑定丢失，使用了默认绑定，因此指向全局上下文，打印：`Name: FEHuang`；
 - `setTimeout(function() { feifei.getName(); }, 1000)`: 虽然也是在`setTimeout`的回调中，但这里是直接执行了`feifei.getName()`，使用隐式绑定，`this`指向`feifei`。所以打印：`Name: feifei`。
 
-### 显示绑定
+### 2.3. 显示绑定
 
 - 显示绑定就是通过`call`,`apply`,`bind`的方式，显式的指定`this`所指向的对象。
 - `call`,`apply`和`bind`的第一个参数，就是对应函数的`thi`s所指向的对象。`call`和`apply`的作用一样，只是传参方式不同。`call`和`apply`都会执行对应的函数，而`bind`方法不会。
 - 注意`call`,`apply`的特殊传参会被转换：传null/undefined --> 全局上下文；原始值 --> 对象(非严格模式)/原始值(严格模式)
 
-#### 典型的显示绑定
+#### 2.3.1. 典型的显示绑定
 
 ```js
 function getName(){
@@ -182,7 +180,7 @@ getNameCopy.call(laohuang);
 
 **解析**：显示绑定直接将`this`绑定到了`laohuang`，所以控制台会打印：`Name: laohuang`。
 
-#### 特殊情况 - 使用call, apply, bind时也可能会遇到绑定丢失
+#### 2.3.2. 特殊情况 - 使用call, apply, bind时也可能会遇到绑定丢失
 
 那么，使用了显示绑定，是不是意味着不会出现隐式绑定所遇到的绑定丢失呢？显然不是这样的，不信，继续往下看。
 
@@ -202,9 +200,9 @@ getNameCopy.call(laohuang, laohuang.getName);
 ```
 
 **解析**：`getNameCopy.call(laohuang, laohuang.getName)`的确将`this`绑定到`laohuang`的`this`了。但`call`的第二个参数传的`getName的引用`，所以在执行`fn()`的时候，相当于直接调用了`getName()`方法。所以控制台会打印：`Name: FEHuang`。
-**思考**: 如果希望绑定不会丢失，要怎么做？(答案在最后的[思考2](#思考2))
+**思考**: 如果希望绑定不会丢失，要怎么做？(答案在最后的[思考2](#42-思考2))
 
-#### 特殊情况 - call, apply, bind的特殊传参
+#### 2.3.3. 特殊情况 - call, apply, bind的特殊传参
 
 在非严格模式下使用`call`和`apply`时，如果用作`this`的值不是对象，则会被尝试转换为对象。`null`和`undefined`被转换为`全局对象`。`原始值`如 7 或 'foo' 会使用相应构造函数转换为`对象`。
 
@@ -241,9 +239,9 @@ var doSth2 = function(name){
 doSth2.call(2, 'laohuang'); // 2, 'laohuang'
 ```
 
-### new绑定
+### 2.4. new绑定
 
-#### new干了什么？
+#### 2.4.1. new干了什么？
 
 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new#%E6%8F%8F%E8%BF%B0)上的介绍时这样的：
 
@@ -252,7 +250,7 @@ doSth2.call(2, 'laohuang'); // 2, 'laohuang'
 3. 将步骤1新创建的对象作为`this`的上下文；
 4. 如果该函数没有返回对象，则返回`this`。
 
-#### 举例
+#### 2.4.2. 举例
 
 ```js
 function getName(name) {
@@ -265,7 +263,7 @@ console.log('Name: ', laohuang.name);
 
 **解析**：在`var laohuang = new getName('laohuang')`这步，会将`getName`中的`this`绑定到对象`laohuang`上。所以控制台会打印：`Name: laohuang`。
 
-### 箭头函数
+### 2.5. 箭头函数
 
 先来看看箭头函数的特点：
 
@@ -327,7 +325,7 @@ names.getName2(); // window对象
 
 - names.getName2()执行的是箭头函数。由于当前的代码块names中不存在this，只能往上层查找。所以这里控制台打印：window对象。
 
-#### 请牢记：箭头函数中的this继承于外层代码库块的this
+#### 2.5.1. 请牢记：箭头函数中的this继承于外层代码库块的this
 
 因为箭头函数里的this也有可能是动态的哟~ 不信看下面的代码：
 
@@ -352,26 +350,26 @@ var n2 = name0.call(names); // names
 n2(); // names  
 ```
 
-## 总结
+## 3. 总结
 
-### 如何准确判断this的指向
+### 3.1. 如何准确判断this的指向
 
 再来复习一下，绑定的**优先级**是：new绑定 > 显示绑定 > 隐式绑定 > 默认绑定。  
 然后我们就可以按以下步骤来判断了：
 
-- 函数是否在new中调用(new绑定)，如果是，那么this绑定的是新创建的对象。
-- 函数是否通过call,apply调用，或者使用了bind(显示绑定)，如果是，那么this绑定的就是指定的对象。
-- 函数是否在某个上下文对象中调用(隐式绑定)，如果是的话，this绑定的是那个上下文对象。一般是obj.fun()
-- 如果以上都不是，那么使用默认绑定。如果在严格模式下，则绑定到undefined，否则绑定到全局对象(node环境的全局对象是globalThis，浏览器环境就是window)。
-- 如果把null或者undefined作为this的绑定对象传入call、apply或者bind，这些值在调用时会被忽略，实际应用的是默认绑定规则。
+- 函数是否在new中调用(new绑定)，如果是，那么this绑定的是新创建的对象；
+- 函数是否通过call,apply调用，或者使用了bind(显示绑定)，如果是，那么this绑定的就是指定的对象；
+- 函数是否在某个上下文对象中调用(隐式绑定)，如果是的话，this绑定的是那个上下文对象。一般是obj.fun()；
+- 如果以上都不是，那么使用默认绑定。如果在严格模式下，则绑定到undefined，否则绑定到全局对象(node环境的全局对象是globalThis，浏览器环境就是window)；
+- 如果把null或者undefined作为this的绑定对象传入call、apply或者bind，这些值在调用时会被忽略，实际应用的是默认绑定规则；
 - 如果是箭头函数，箭头函数的this继承的是外层代码块的this。
 
 最后，this指向还需要多加练习，本文只是列举了个大概，只有不断练习才能熟练掌握哦~  
 有错误，欢迎指正哦~
 
-## 思考
+## 4. 思考
 
-### 思考1
+### 4.1. 思考1
 
 ```js
 var number = 5;
@@ -440,7 +438,7 @@ function () {
 
 [回到前言](#前言)
 
-### 思考2
+### 4.2. 思考2
 
 问题：显示绑定 - 如果希望绑定不会丢失，要怎么做？  
 解答：在调用fn的时候，也给它做个显示绑定。
@@ -462,7 +460,7 @@ getNameCopy.call(laohuang, laohuang.getName);
 
 [回到显示绑定](#典型的显示绑定)
 
-## 参考
+## 5. 参考
 
 - [嗨，你真的懂this吗？](https://juejin.cn/post/6844903805587619854)
 - [MDN - this](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this)
