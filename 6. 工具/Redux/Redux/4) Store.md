@@ -55,4 +55,4 @@ store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED))
 unsubscribe();
 ```
 
-![img](../../../Assets/images/store.png)
+![](https://gitee.com/ahuang6027/blog-images/raw/master/images/store.png)

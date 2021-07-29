@@ -4,8 +4,8 @@
 
 ### 我的掘金账号
 
-![掘金](./Assets/images/juejin二维码.png)
+![](https://gitee.com/ahuang6027/blog-images/raw/master/images/juejin二维码.png)
 
 ### 我的微信公众号
 
-![](./Assets/images/wx二维码.jpg)
+![](https://gitee.com/ahuang6027/blog-images/raw/master/images/wx二维码.jpg)

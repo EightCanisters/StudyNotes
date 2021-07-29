@@ -1,22 +1,27 @@
-#### 1. 生成工作用的SSH-key：
+#### 1. 生成工作用的SSH-key
+
 ```shell
 # 输入命令：
 $ ssh-keygen -t rsa -C "v-linxhu@microsoft.com" -f ~/.ssh/asd-angular-rsa
 ```
 
-#### 2. 生成自用github的SSH-key：
+#### 2. 生成自用github的SSH-key
+
 ```shell
 # 输入命令：
 $ ssh-keygen -t rsa -C "ahuang6328@163.com" -f ~/.ssh/own-github
 ```
 
-#### 3. 复制公钥到各网站：
+#### 3. 复制公钥到各网站
+
 - 打开C:\Users\v-linxhu\.ssh可以看到生成的ssh：
-![git-ssh](../Assets/images/git-ssh.png)
+![git-ssh](https://gitee.com/ahuang6027/blog-images/raw/master/images/git-ssh.png)
 - 复制公钥到各网站
 
-#### 4. 添加私钥：
+#### 4. 添加私钥
+
 其实就是将秘钥和远程仓库的对应关系添加在known_hosts文件中
+
 ```shell
 # 挨个添加
 ## 1
@@ -25,7 +30,9 @@ $ ssh-add ~/.ssh/asd-angular-rsa
 ## 2
 $ ssh-add ~/.ssh/asd-angular-rsa
 ```
+
 如果提示"Could not open a connection to your authentication agent"，可以执行命令：
+
 ```shell
 # 执行下面这条命令后再执行ssh-add命令
 $ ssh-agent bash
@@ -39,7 +46,8 @@ $ ssh-add -l
 $ ssh-add -D
 ```
 
-#### 5. 修改配置文件：
+#### 5. 修改配置文件
+
 ```shell
 # 若.ssh目录下无config文件，那么创建
 $ touch config
