@@ -53,6 +53,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
           presets: [
@@ -64,7 +65,7 @@ module.exports = {
                 targets: {
                   chrome: '60',
                   firefox: '50',
-                  ie: '8'
+                  ie: '9'
                 }
               }
             ]
@@ -72,7 +73,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(jpb|png|gif)$/,
+        test: /\.(jpg|png|gif)$/,
         loader: 'url-loader',
         options: {
           limit: 8 * 1024,
@@ -89,7 +90,7 @@ module.exports = {
         }
       },
       {
-        exclude: /\.(js|html|css|less|jpg|png|gif|sass|scss)$/,
+        exclude: /\.(js|html|css|less|jpg|png|gif)$/,
         loader: 'file-loader',
         options: {
           outputPath: 'assets'
