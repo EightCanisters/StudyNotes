@@ -41,6 +41,7 @@ module.exports = {
     new MiniCSSExtractPlugin({
       filename: 'css/built.css'
     }),
+    // 压缩css
     new OptimizeCSSAssetsWebpackPlugin()
   ],
   mode: 'development'

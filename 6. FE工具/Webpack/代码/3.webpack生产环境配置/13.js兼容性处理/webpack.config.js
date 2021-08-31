@@ -65,6 +65,10 @@ module.exports = {
             [
               '@babel/preset-env',
               {
+                /** https://babeljs.io/docs/en/babel-preset-env#usebuiltins
+                 * useBuiltIns：配置@babel/preset-env如何处理polyfills，取“usage”，“entry”，“false”之一，默认为“false”
+                 *  - 当使用usage或entry选项时，@babel/preset-env将添加对core-js模块的直接引用，类似import（或require）。这意味着core-js将相对于文件本身进行解析，并且按需引入。
+                 */
                 useBuiltIns: 'usage', // 按需加载
                 corejs: { version: 3 }, // 指定corejs的版本
                 targets: { chrome: '60', firefox: '60', ie: '9', safari: '10', edge: '17' } // 指定兼容到浏览器哪个版本
