@@ -43,5 +43,8 @@
     "env": {
       "browser": true
     }
-  }
+  },
+  "sideEffects": [
+    "*.css"
+  ]
 }
