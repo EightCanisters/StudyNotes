@@ -22,6 +22,9 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
               print();
           });
         - 效果：修改print.js，HMR生效；修改index.js，自动刷新整个标签页
+    3）注意：
+      - HMR是基于devServer的，所以只能用于开发环境；
+      - 需要将package.json中的browserslist注释/删掉。
 }
  */
 module.exports = {
