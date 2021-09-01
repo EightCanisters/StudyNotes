@@ -4,9 +4,49 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 
 /**
- * oneOf
- *  - 含义：配置后，一个文件在构建时，只会匹配oneOf数组里头某一个loader（不配置的话，一个文件会挨个去匹配loader），用于优化生产环境打包构建速度；
- *  - 注意：oneOf数组里不能有两个loader配置处理同一类型的文件。如果一个类型有多个loader，可在oneOf中保留一个，将其余的提到外层。
+ * 缓存：
+ *  - 含义：
+ *    - webpack打包构建时，利用缓存使速度变快（babel缓存）；
+ *    - 项目部署运行时，利用浏览器缓存使网页加载更快，同时解决缓存造成的代码不更新的问题（文件资源缓存）
+ *  1）babel缓存：
+ *    - 配置：修改`babel-loader`的配置，添加`cacheDirectory: true`：
+ *      ```js 
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  useBuiltIns: 'usage',
+                  corejs: { version: 3 },
+                  targets: {
+                    chrome: '60',
+                    firefox: '50'
+                  }
+                }
+              ]
+            ],
+            // 开启babel缓存
+            // 第二次构建时，会读取之前的缓存
+            cacheDirectory: true
+          }
+        }
+ *      ```
+ *    - 作用：第二次构建时，会读取之前的缓存，从而使第二次打包构建速度更快。
+ *  2）文件资源缓存：
+ *    - 配置：在所有可以给输出文件命名的地方加上`[hash/contenthash/chunkhash:10]`（比如：将output.filename修改为`js/built.[hash:10].js`）
+ *    - 使用hash/chunkhash/contenthash：
+ *      - hash：每次webpack构建时会生成一个唯一的hash值；
+ *        - 问题：因为js和css使用的是同一个hash值。使用[hash:10]重新打包后，会导致所有的缓存都失效了（因为js和css的文件名都变了，但可能此时只改动了一个文件）
+ *      - chunkhash：根据chunk生成的hash值。如果打包出来的文件来源于一个chunk，那么hash值就一样。
+ *        - 问题：同一个chunk，js和css使用的hash值还是同一个。依然可能会导致缓存失效，原因场景同上。
+ *      - contenthash：根据文件的内容生成hash值。
+ *        - 只要文件内容变化，hash值就会改变（内容不变，hash值也不变）；
+ *        - 这样，不同文件的hash值一定不同；
+ *        - 完美解决了上边的问题。
  */
 
 process.env.NODE_ENV = 'production'; // 定义nodejs环境变量：决定使用browserslist的哪个环境
@@ -29,7 +69,7 @@ const commonCssLoader = [
 module.exports = {
   entry: './src/js/index.js',
   output: {
-    filename: 'js/built.js',
+    filename: 'js/built.[contenthash:10].js',
     path: resolve(__dirname, 'build')
   },
   module: {
@@ -79,7 +119,10 @@ module.exports = {
                     }
                   }
                 ]
-              ]
+              ],
+              // 开启babel缓存
+              // 第二次构建时，会读取之前的缓存
+              cacheDirectory: true
             }
           },
           {
@@ -112,7 +155,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/built.css'
+      filename: 'css/built.[contenthash:10].css'
     }),
     new OptimizeCssAssetsWebpackPlugin(),
     new HTMLWebpackPlugin({
@@ -123,5 +166,6 @@ module.exports = {
       }
     })
   ],
-  mode: 'production'
+  mode: 'production',
+  devtool: 'source-map'
 }
