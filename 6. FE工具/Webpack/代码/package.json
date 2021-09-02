@@ -36,6 +36,7 @@
   "dependencies": {
     "file-loader": "^6.2.0",
     "html-loader": "^2.1.2",
+    "jquery": "^3.6.0",
     "url-loader": "^4.1.1"
   },
   "eslintConfig": {
