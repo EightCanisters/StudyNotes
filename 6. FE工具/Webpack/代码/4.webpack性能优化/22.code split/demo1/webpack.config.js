@@ -1,6 +1,10 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+/**
+ * 多入口：一个入口被打包成一个文件
+ */
+
 module.exports = {
   // 单入口
   // entry: './src/js/index.js',

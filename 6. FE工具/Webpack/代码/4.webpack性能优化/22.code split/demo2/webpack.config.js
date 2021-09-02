@@ -1,6 +1,12 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+/**
+ * 多入口 + 配置splitChunks：
+ *  - 两个入口被分别打包输出；
+ *  - node_modules被单独打包输出；
+ *  - 自动分析多入口chunk中，有没有公共的文件。如果有会打包成单独一个chunk。
+ */
 module.exports = {
   // 单入口
   // entry: './src/js/index.js',
