@@ -117,5 +117,5 @@ module.exports = {
     hot: true
   },
   // 开启source-map
-  devtool: 'eval-source-map'
+  devtool: 'nosources-source-map'
 }

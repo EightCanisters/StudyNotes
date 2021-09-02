@@ -2,9 +2,7 @@ import '../styles/iconfont.css';
 import '../styles/index.less';
 import print from './print';
 
-console.log('index.js文件被加载了~');
-
-print();
+console.log('index.js文件被加载了~');print()();
 
 function add(x, y) {
   return x + y;
