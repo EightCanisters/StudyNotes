@@ -9,7 +9,7 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
  *  - 含义：类比上面那棵树，webpack中的tree shaking即**去除没有用过的代码，减小打包后代码体积**。
  *  - 如何使用：
  *    - 1. 写代码时必须使用ES6模块化；
- *    - 2. 开启production模式（或引用一个能够删除为引用代码的压缩工具，比如UglifyJSPlugin）；
+ *    - 2. 开启production模式（或引用一个能够删除未引用代码的压缩工具，比如UglifyJSPlugin）；
  *    - 3. 避免只import却未调用的文件（类似于css、@babel/polyfill这种）被干掉，还需设置package.json的`sideEffects`：
  *      - `"sideEffects": false`：所有代码都没有副作用（都可以被摇掉，可能会干掉css、@babel/polyfill）；
  *      - `"sideEffects": ["*.css", "*.less"]`：相当于排除了"*.css"、 "*.less"两种文件。
