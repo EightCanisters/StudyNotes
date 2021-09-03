@@ -40,7 +40,7 @@ github:
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: 黄林秀
+  name: FE-Huang
   email: ahuang6328@163.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
@@ -170,3 +170,19 @@ jekyll-archives:
     tag: /tags/:name/
     category: /categories/:name/
 
+tabs:
+  home:
+    url: /
+    title: 首页
+  categories: 
+    title: 分类
+    url: /categories/
+  tags: 
+    title: 标签
+    url: /tags/
+  archives: 
+    title: 归档
+    url: /archives/
+  about: 
+    title: 关于
+    url: /about
