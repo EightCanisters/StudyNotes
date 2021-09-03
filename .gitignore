@@ -2,3 +2,8 @@ node_modules/
 package-lock.json
 build/
 dist/
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
