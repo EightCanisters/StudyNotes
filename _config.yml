@@ -29,7 +29,8 @@ github_username:  FE Huang
 markdown: kramdown
 
 # Build settings
-theme: minima
+# theme: minima
+remote_theme: sujaykundu777/devlopr-jekyll
 plugins:
   - jekyll-feed
 
