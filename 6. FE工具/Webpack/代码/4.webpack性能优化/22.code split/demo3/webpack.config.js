@@ -2,7 +2,7 @@ const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /**
- * 多入口 + 配置splitChunks + import：
+ * 单入口 + 配置splitChunks + import：
  *  - 一个入口被打包输出；
  *  - 动态import()的文件被单独打包输出；
  *  - node_modules被单独打包输出；
