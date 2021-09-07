@@ -2,7 +2,7 @@
 
 ## CSS
 
-## JS
+## JS 基础
 
 ### • 基础数据类型
 
@@ -499,6 +499,8 @@ child instanceof Parent // true
 
 当然了，在 JS 中并不存在类，class 的本质就是函数。
 
+## ES6+
+
 ### • var, const, let的区别
 
 对于这个问题，我们应该先来了解提升（hoisting）这个概念。
@@ -590,3 +592,289 @@ test1()
 - var 存在提升，我们能在声明之前使用。let、const 因为暂时性死区的原因，不能在声明前使用
 - var 在全局作用域下声明变量会导致变量挂载在 window 上，其他两者不会
 - let 和 const 作用基本一致，但是后者声明的变量不能再次赋值
+
+### • 模块化
+
+> 参考：<https://juejin.cn/post/6844903744518389768>
+
+#### 模块化的好处
+
+- 解决命名冲突；
+- 提供复用性；
+- 提高代码可维护性。
+
+#### 立即执行函数
+
+在早期，使用立即执行函数实现模块化是很常见的手段，通过函数作用域解决了命名冲突、全局作用域被污染的问题。
+
+```js
+(function(globalVariable) {
+  globalVariable.test = function() {}
+  // ... 声明各种变量、函数都不会污染全局作用域
+})(globalVariable)
+```
+
+#### CommonJS (Node)
+
+**1）概述：**
+
+CommonJS最早是在Node中使用的，目前也仍然广泛使用，比如在Webpack就是使用CommonJS。Node 应用由模块组成，采用 CommonJS 模块规范。每个文件就是一个模块，有自己的作用域。在一个文件里面定义的变量、函数、类，都是私有的，对其他文件不可见。在服务器端，模块的加载是运行时同步加载的；在浏览器端，模块需要提前编译打包处理。  
+当然目前Node中的模块管理已经和CommonJS有一些区别了。
+
+**2）基本语法：**
+
+- 暴露模块：`module.exports = value`或`exports.xxx = value`
+- 引入模块：`require(xxx)`,如果是第三方模块，xxx为模块名；如果是自定义模块，xxx为模块文件路径
+
+此处我们有个疑问：CommonJS暴露的模块到底是什么? CommonJS规范规定，每个模块内部，`module`变量代表当前模块。这个变量是一个对象，它的`exports`属性（即`module.exports`）是对外的接口。加载某个模块，其实是加载该模块的`module.exports`属性。
+
+```js
+// a.js
+module.exports = {
+  a: 1
+}
+// or
+exports.a = 1;
+
+// b.js
+var module = require('./a.js');
+module.a; // 1
+```
+
+**3）特点：**
+
+- 所有代码都运行在模块作用域，不会污染全局作用域。
+- 模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果。要想让模块再次运行，必须清除缓存。
+- 模块加载的顺序，按照其在代码中出现的顺序；
+- 加载机制：**输入的是被输出的值的拷贝**。也就是说，**一旦输出一个值，模块内部的变化就影响不到这个值**。这点与ES6模块化有重大差异（下文会介绍）
+
+  ```js
+  // lib.js
+  var counter = 3;
+  function incCounter() {
+    counter++;
+  }
+  module.exports = {
+    counter: counter,
+    incCounter: incCounter,
+  };
+
+  // main.js
+  var counter = require('./lib').counter;
+  var incCounter = require('./lib').incCounter;
+
+  console.log(counter);  // 3
+  incCounter();
+  console.log(counter); // 3
+  ```
+
+#### AMD(RequireJS)
+
+**1）特点：**
+
+- CommonJS规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。AMD规范则是非同步加载模块，允许指定回调函数。  
+- 由于Node.js主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以CommonJS规范比较适用。但是，如果是浏览器环境，要从服务器端加载模块，这时就必须采用非同步模式，因此浏览器端一般采用AMD规范。此外AMD规范比CommonJS规范在浏览器端实现要来着早。
+
+**2）基本语法：**
+
+```js
+
+// 定义暴露模块 - 没有依赖
+define(function(){
+   return 模块
+})
+
+//定义暴露模块 - 有依赖
+define(['module1', 'module2'], function(m1, m2){
+   return 模块
+})
+
+// 引用使用模块
+require(['module1', 'module2'], function(m1, m2) {
+  // 使用m1, m2
+})
+```
+
+#### CMD(SeaJS)
+
+**1）特点：**
+
+- CMD规范专门用于浏览器端，模块的加载是**异步**的，模块使用时才会加载执行。
+- CMD规范整合了CommonJS和AMD规范的特点。
+- 在 Sea.js 中，所有 JavaScript 模块都遵循 CMD模块定义规范。
+
+**2）基本语法：**
+
+```js
+
+// 定义暴露模块 - 没有依赖
+define(function(require, exports, module){
+  exports.xxx = value
+  module.exports = value
+})
+
+// 定义暴露模块 - 有依赖
+define(function(require, exports, module){
+  //引入依赖模块(同步)
+  var module2 = require('./module2')
+  //引入依赖模块(异步)
+  require.async('./module3', function (m3) {})
+  //暴露模块
+  exports.xxx = value
+})
+
+// 引用使用模块
+define(function (require) {
+  var m1 = require('./module1')
+  var m4 = require('./module4')
+  m1.show()
+  m4.show()
+})
+```
+
+#### ES Module
+
+**1）概述：**  
+export命令用于规定模块的对外接口，import命令用于输入其他模块提供的功能。
+
+**2）基本语法：**
+
+```js
+
+/** 语法1 export { } **/
+
+// 定义模块 math.js
+var basicNum = 0;
+var add = function (a, b) {
+    return a + b;
+};
+export { basicNum, add };
+
+// 引用模块
+import { basicNum, add } from './math';
+function test(ele) {
+    ele.textContent = add(99 + basicNum);
+}
+
+/** 语法2：export default **/
+
+// export-default.js
+export default function () {
+  console.log('foo');
+}
+
+// import-default.js
+import customName from './export-default';
+customName(); // 'foo'
+```
+
+**3）ES Module 与 CommonJS的差异：**
+
+它们有两个重大差异：
+
+- CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的动态引用。
+  - ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。
+- CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+  - CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
+
+#### 小结
+
+- CommonJS规范主要用于服务端编程，加载模块是**同步**的，这并不适合在浏览器环境，因为同步意味着阻塞加载，浏览器资源是异步加载的，因此有了AMD CMD解决方案。
+- AMD规范在浏览器环境中**异步加载**模块，而且可以**并行**加载多个模块。不过，AMD规范开发成本高，代码的阅读和书写比较困难，**模块定义方式的语义不顺畅**。
+- CMD规范与AMD规范很相似，都用于浏览器编程，依赖就近，**延迟执行**，可以很容易在Node.js中运行。不过，依赖SPM 打包，模块的**加载逻辑偏重**；
+- ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，完全可以取代 CommonJS 和 AMD 规范，成为浏览器和服务器通用的模块解决方案。
+
+### • Proxy
+
+#### Proxy简介
+
+> MDN Proxy: <https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy>  
+> MDN Reflect: <https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect>
+
+如果你平时有关注 Vue 的进展的话，可能已经知道了在 Vue3.0 中将会通过`Proxy`来替换原本的`Object.defineProperty`来实现数据响应式。 `Proxy`是 ES6 中新增的功能，用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）。
+
+```js
+let p = new Proxy(target, handler)
+```
+
+`target`代表需要添加代理的对象，`handler`用来自定义对象中的操作，比如可以用来自定义`set`或者`get`函数。
+
+#### Proxy实现数据响应式
+
+```js
+let onWatch = (obj, setBind, getLogger) => {
+  let handler = {
+    get(target, property, receiver) {
+      getLogger(target, property)
+      return Reflect.get(target, property, receiver)
+    },
+    set(target, property, value, receiver) {
+      setBind(value, property)
+      return Reflect.set(target, property, value)
+    }
+  }
+  return new Proxy(obj, handler)
+}
+
+let obj = { a: 1 }
+let p = onWatch(
+  obj,
+  (v, property) => {
+    console.log(`监听到属性${property}改变为${v}`)
+  },
+  (target, property) => {
+    console.log(`'${property}' = ${target[property]}`)
+  }
+)
+p.a = 2 // 监听到属性a改变
+p.a // 'a' = 2
+```
+
+在上述代码中，我们通过自定义 set 和 get 函数的方式，在原本的逻辑中插入了我们的函数逻辑，实现了在对对象任何属性进行读写时发出通知。
+
+当然这是简单版的响应式实现，如果需要实现一个 Vue 中的响应式，需要我们在 get 中收集依赖，在 set 派发更新，之所以 Vue3.0 要使用 Proxy 替换原本的 API 原因在于 Proxy 无需一层层递归为每个属性添加代理，一次即可完成以上操作，性能上更好，并且原本的实现有一些数据更新不能监听到，但是 Proxy 可以完美监听到任何方式的数据改变，唯一缺陷可能就是浏览器的兼容性不好了。
+
+### • 并行和并发的区别
+
+## JS异步
+
+### • Generator
+
+Generator 算是 ES6 中难理解的概念之一了，Generator 最大的特点就是可以控制函数的执行。在这一小节中我们不会去讲什么是 Generator，而是把重点放在 Generator 的一些容易困惑的地方。
+
+#### 栗子
+
+```js
+function *foo(x) {
+  let y = 2 * (yield (x + 1))
+  let z = yield (y / 3)
+  return (x + y + z)
+}
+let it = foo(5)
+console.log(it.next())   // => {value: 6, done: false}，运行到 x + 1，且还未对y赋值，此时 x = 5
+console.log(it.next(12)) // => {value: 8, done: false}，将12作为yield (x + 1)的返回值，y = 2 * 12 = 24，运行到下一个yield暂停
+console.log(it.next(13)) // => {value: 42, done: true}，将13作为yield (y / 3)的返回值，z = 13
+```
+
+你也许会疑惑为什么会产生与你预想不同的值，接下来就让我为你逐行代码分析原因：
+
+- 首先 Generator 函数调用和普通函数不同，它会返回一个迭代器
+- 当执行第一次 next 时，传参会被忽略，并且函数暂停在 yield (x + 1) 处，所以返回 5 + 1 = 6
+- 当执行第二次 next 时，传入的参数等于上一个 yield 的返回值，如果你不传参，yield 永远返回 undefined。此时 let y = 2 *12，所以第二个 yield 等于 2* 12 / 3 = 8
+- 当执行第三次 next 时，传入的参数会传递给 z，所以 z = 13, x = 5, y = 24，相加等于 42
+
+#### Generator 解决 回调地狱
+
+回调地狱：比如有三个ajax请求，他们之间必须有先后顺序，传统写法就是使用ajax嵌套。
+
+```js
+function *fetch() {
+    yield ajax(url, () => {})
+    yield ajax(url1, () => {})
+    yield ajax(url2, () => {})
+}
+let it = fetch()
+let result1 = it.next()
+let result2 = it.next()
+let result3 = it.next()
+```
