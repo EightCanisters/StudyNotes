@@ -8,11 +8,13 @@ const server = http.createServer((req, res) => {
     const { pathname } = url.parse(req.url);
     const filePath = path.join(__dirname, pathname);
 
+    // fs.stat - 根据地址检查文件是否存在，而不对其进行操作。并在回调中返回文件的状态信息。http://nodejs.cn/api/fs.html#fs_fs_stat_path_options_callback
     fs.stat(filePath, (err, stats) => {
         if(err) {
             res.statusCode = 404;
             res.end('Not found!');
         }
+        // 如果该路径指向一个文件，设置缓存；否则返回状态404
         if(stats?.isFile()) {
             console.log(filePath)
             // 设置后：第一次请求后30秒内再发请求都走浏览器缓存
