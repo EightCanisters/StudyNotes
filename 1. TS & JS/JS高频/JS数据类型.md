@@ -1,6 +1,6 @@
 ## 1. 基础数据类型
 
-在 JS 中，存在着 6 种原始值，分别是：
+在 JS 中，存在着 7 种原始值，分别是：
 
 - boolean
 - null
@@ -8,6 +8,7 @@
 - number
 - string
 - symbol
+- bigint
   
 首先原始类型存储的都是值，是没有函数可以调用的，比如`undefined.toString()`。
 
@@ -71,7 +72,7 @@ console.log(p2) // -> ?
 
 ### 3.1. 用typeOf
 
-目前有7中可能的取值👇
+目前有8中可能的取值👇
 
 ```js
 // null
@@ -83,6 +84,7 @@ typeof '1' // 'string'
 typeof undefined // 'undefined'
 typeof true // 'boolean'
 typeof Symbol() // 'symbol'
+typeof BigInt(1) // 'bigint'
 
 // 引用类型
 typeof [] // 'object'
@@ -124,6 +126,7 @@ console.log('hello world' instanceof PrimitiveString) // true
 ### 3.3. 用原型 - Object.prototype.toString.call()（返回'[Object xxx]'）
 
 ![](https://gitee.com/ahuang6027/blog-images/raw/master/images/面试集锦-类型判断.png)
+![](https://gitee.com/ahuang6027/blog-images/raw/master/images/20211008212342.png)
 
 ### 3.4. 类型判断总结
 
