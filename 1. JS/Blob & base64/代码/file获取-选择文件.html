@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="file" multiple id="select-file">
+  <script>
+    const inputEl = document.getElementById('select-file');
+    inputEl.onchange = function (e) {
+      const files = e.target.files;
+      const file = files[0];
+      console.log(files); // FileList {0: File, 1: File, length: 2}
+      console.log(files instanceof FileList); // true
+      console.log(file.__proto__.__proto__); // Blob {arrayBuffer: ƒ, slice: ƒ, stream: ƒ, …}
+    }
+  </script>
+</body>
+
+</html>

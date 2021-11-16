@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div style="width: 200px;height: 150px; border: 1px solid blue;" ondrop="dropHandler(event)"
+    ondragover="dragOverHandler(event)">拖拽生效区</div>
+
+  <script>
+    function dropHandler(e) {
+      e.preventDefault();
+      const files = e.dataTransfer.files;
+      console.log(files); // FileList {0: File, length: 1}
+      console.log(files instanceof FileList); // true
+    };
+    function dragOverHandler(e) {
+      e.preventDefault();
+    }
+  </script>
+</body>
+
+</html>

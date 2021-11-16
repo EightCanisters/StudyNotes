@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button onclick="download()">下载download.txt</button>
+  <script>
+    const getObjectURL = (file) => {
+      let url;
+      if (window.createObjectURL) {
+        url = window.createObjectURL(file);
+      } else if (window.URL) {
+        url = window.URL.createObjectURL(file);
+      } else if (window.webkitURL) {
+        url = window.webkitURL.createObjectURL(file);
+      }
+      return url;
+    };
+
+    function download() {
+      const fileName = 'download-test.txt';
+      const currBlob = new Blob(['测试文件下载', { type: 'text/plain' }]);
+      const link = document.createElement('a');
+      link.href = getObjectURL(currBlob);
+      console.log(link.href); // blob:http://127.0.0.1:5500/aafe9575-3016-4813-a21c-61a42eaca78d
+      link.download = fileName;
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(link.href);
+    }
+  </script>
+</body>
+
+</html>
