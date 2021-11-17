@@ -182,6 +182,7 @@ console.log(buffer.byteLength); // 8
 | 属性名 | 描述 |
 | :--- | :---------------- |
 | length | ArrayBuffer 构造函数的 length 属性，其值为1。 |
+| ***✨✨✨以下是实例属性(放prototype上的) ✨✨✨*** | ***✨✨✨以下是实例属性(放prototype上的) ✨✨✨*** |
 | byteLength (只读) | 表示 ArrayBuffer 的byte的大小，在ArrayBuffer构造完成时生成，不可改变。 |
 
 #### (3) 方法
@@ -189,13 +190,14 @@ console.log(buffer.byteLength); // 8
 | 方法名 | 描述 |
 | :--- | :---------------- |
 | isView(arg) | 如果参数是 ArrayBuffer 的视图实例则返回 true，例如 类型数组对象 或 DataView 对象；否则返回 false。 |
+| ***✨✨✨以下是实例方法(放prototype上的) ✨✨✨*** | ***✨✨✨以下是实例方法(放prototype上的) ✨✨✨*** |
 | slice(begin[, end]) | 返回一个新的 ArrayBuffer ，它的内容是这个ArrayBuffer的字节副本，从begin（包括），到end（不包括）。 |
 
 #### (4) ❗注意
 
 不能直接操作`ArrayBuffer`的内容，而是要通过`类型数组对象(TypedArrays)`或`DataView`对象来操作，它们会将缓冲区中的数据表示为特定的格式，并通过这些格式来读写缓冲区的内容。
 
-### 2.5. 操作ArrayBuffer内容的对象
+### 2.5. ArrayBufferView - 操作ArrayBuffer内容的对象
 
 #### 2.5.1. [TypedArray](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/TypedArray)
 
@@ -217,9 +219,23 @@ TypedArray只是一个概念分类，不是对象，以下都是TypedArray：
 | Float32Array | 4 | 32位浮点数 |
 | Float64Array | 8 | 64位浮点数 |
 
-**🌰栗子:**
+##### (2) 构造函数
 
-让我们看看ArrayBuffer的本质：
+```js
+// 下面代码是语法格式，不能直接运行，
+// TypedArray 关键字需要替换为底部列出的构造函数。
+new TypedArray(); // ES2017中新增
+// length: 当传入 length 参数时，一个内部的数组缓冲区会被创建在内存中，该缓存区的大小（类型化数组中 byteLength 属性的值）是传入的 length 乘以数组中每个元素的字节数（BYTES_PER_ELEMENT），每个元素的值都为0。
+new TypedArray(length);
+// typedArray: 根据typedArray生成新的类型化数组。新生成的类型化数组对象将会有跟传入的数组相同的长度（译者注：比如原来的类型化数组的 length==2，那么新生成的数组的 length 也是 2，只是数组中的每一项进行了转化）。
+new TypedArray(typedArray);
+// object: 当传入一个 object 作为参数时，就像通过 TypedArray.from() 方法创建一个新的类型化数组一样。
+new TypedArray(object);
+// 当传入一个 buffer 参数，或者再另外加上可选参数 byteOffset 和 length 时，一个新的类型化数组视图将会被创建，并可用于呈现传入的 ArrayBuffer 实例。byteOffset 和length 参数指定了类型化数组视图将要暴露的内存范围。如果两者都未传入，那么整个buffer 都会被呈现；如果仅仅忽略 length，那么 buffer 中偏移了 byteOffset 后剩下的 buffer 将会被呈现。
+new TypedArray(buffer [, byteOffset [, length]]);
+```
+
+##### (3) 🌰栗子：ArrayBuffer的本质
 
 ```js
 // 创建一个8字节的ArrayBuffer  
@@ -238,35 +254,26 @@ var v3 = new Int16Array(b, 2, 2);
 上面的代码里变量的数据结构如下表所示：
 ![](https://gitee.com/ahuang6027/blog-images/raw/master/images/arraybuffer-exp.png)
 
-##### (2) 构造函数
-
-```js
-// 下面代码是语法格式，不能直接运行，
-// TypedArray 关键字需要替换为底部列出的构造函数。
-new TypedArray(); // ES2017中新增
-// length: 当传入 length 参数时，一个内部的数组缓冲区会被创建在内存中，该缓存区的大小（类型化数组中 byteLength 属性的值）是传入的 length 乘以数组中每个元素的字节数（BYTES_PER_ELEMENT），每个元素的值都为0。
-new TypedArray(length);
-// typedArray: 根据typedArray生成新的类型化数组。新生成的类型化数组对象将会有跟传入的数组相同的长度（译者注：比如原来的类型化数组的 length==2，那么新生成的数组的 length 也是 2，只是数组中的每一项进行了转化）。
-new TypedArray(typedArray);
-// object: 当传入一个 object 作为参数时，就像通过 TypedArray.from() 方法创建一个新的类型化数组一样。
-new TypedArray(object);
-// 当传入一个 buffer 参数，或者再另外加上可选参数 byteOffset 和 length 时，一个新的类型化数组视图将会被创建，并可用于呈现传入的 ArrayBuffer 实例。byteOffset 和length 参数指定了类型化数组视图将要暴露的内存范围。如果两者都未传入，那么整个buffer 都会被呈现；如果仅仅忽略 length，那么 buffer 中偏移了 byteOffset 后剩下的 buffer 将会被呈现。
-new TypedArray(buffer [, byteOffset [, length]]);
-```
-
-##### (3) 属性
+##### (4) 属性
 
 | 属性名 | 描述 |
 | :--- | :---------------- |
-| length | 类型化数组中元素的个数，例如 new Int8Array(3).length === 3。 |
+| name | 返回构造函数名称的字符串值（例如，“ Int8Array”）。 |
 | BYTES_PER_ELEMENT | 返回一个数值，代表不同类型的类型化数组对象中，单个元素的字节大小。 |
+| ***✨✨✨以下是实例属性(放prototype上的) ✨✨✨*** | ***✨✨✨以下是实例属性(放prototype上的) ✨✨✨*** |
+| buffer (只读)  | 返回ArrayBuffer类型化数组所引用的。在构建时固定，因此是**只读**的。 |
+| byteLength (只读)  | 返回类型化数组的长度（以字节为单位）。在构建时修复，因此**只读**。 |
+| byteOffset (只读)  | 返回类型化数组从其开头的偏移量（以字节为单位） ArrayBuffer。在构建时修复，因此**只读**。 |
+| length (只读)  | 返回类型化数组中保存的元素数。在构建时修复，因此**只读**。 |
 
-##### (4) 方法
+##### (5) 方法
+
+> 这里只列出静态方法，实例方法看[这里](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray#instance_methods)
 
 | 方法名 | 描述 |
 | :--- | :---------------- |
-| from() | 使用类数组(array-like)或迭代对象创建一个新的类型化数组.参见[Array.from()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from). |
-| of() | 通过可变数量的参数创建新的类型化数组.参见[Array.of()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/of). |
+| from(arrayLike[, mapFn[, thisArg]]) | 使用类数组(array-like)或迭代对象创建一个新的类型化数组.参见[Array.from()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from) |
+| of(element0[, element1[, ...[, elementN]]]) | 通过可变数量的参数创建新的类型化数组.参见[Array.of()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/of) |
 
 #### 2.5.2. [DataView](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/DataView)
 
@@ -288,14 +295,16 @@ new DataView(buffer [, byteOffset [, byteLength]]);
 
 | 属性名 | 描述 |
 | :--- | :---------------- |
-| buffer | 表示ArrayBuffer |
-| byteOffset | 指缓冲区开始处的偏移量 |
-| byteLength | 指缓冲区部分的长度 |
+| ***✨✨✨以下是实例属性(放prototype上的) ✨✨✨*** | ***✨✨✨以下是实例属性(放prototype上的) ✨✨✨*** |
+| buffer (只读) | 表示ArrayBuffer |
+| byteOffset (只读) | 指缓冲区开始处的偏移量 |
+| byteLength (只读) | 指缓冲区部分的长度 |
 
 ##### (3) 方法
 
 | 方法名 | 描述 |
 | :--- | :---------------- |
+| ***✨✨✨以下是实例方法(放prototype上的) ✨✨✨*** | ***✨✨✨以下是实例方法(放prototype上的) ✨✨✨*** |
 | getInt8() | 在从视图开始的指定字节偏移处获取一个带符号的8位整数(字节)。 |
 | setInt8() | 在从视图开始的指定字节偏移处存储一个有符号的8位整数(字节)值。 |
 | ... | ...(还有很多，都是getxxx, setxxx，意思差不多) |
@@ -333,7 +342,7 @@ new DataView(buffer [, byteOffset [, byteLength]]);
 | readAsDataURL() | 开始读取指定 的内容Blob，完成后，该result属性包含data:表示文件数据的URL。 |
 | readAsText()| 开始读取指定的内容Blob，完成后，该result属性包含作为文本字符串的文件内容。可以指定可选的编码名称。 |
 
-#### (4) 🌰栗子
+#### (4) 🌰栗子：如何使用FileReader
 
 ```js
 const blob = new Blob(['<xml>foo</xml>'], { type: 'text/xml' });
@@ -398,7 +407,7 @@ const getObjectURL = (file) => {
 };
 ```
 
-#### (2) 🌰文件下载
+#### (2) 🌰栗子：文件下载
 
 ```html
 <button onclick="download()">下载download.txt</button>
@@ -513,7 +522,311 @@ BlobURL基本用法与DataUrl相同，都可以通过将其放在地址栏中进
 祭出大图👇
 ![](https://gitee.com/ahuang6027/blog-images/raw/master/images/blob转换.png)
 
-###
+### 字符串与Uint8Array
+
+**💫字符串 --> Uint8Array：**
+
+```js
+const str = 'ab';
+const ui8Arr = Uint8Array.from(str.split(''), (s) => s.charCodeAt(0));
+console.log(ui8Arr); // Uint8Array(2) [97, 98, buffer: ArrayBuffer(2), byteLength: 2, byteOffset: 0, length: 2]
+```
+
+**💫Uint8Array --> 字符串：**
+
+```js
+const u8 = Uint8Array.of(97,98);
+const str = Array.from(u8, (s) => String.fromCharCode(s)).join('');
+console.log(str); // ab
+```
+
+### Uint8Array与ArrayBuffer
+
+**💫Uint8Array --> ArrayBuffer：**
+
+```js
+const u8Arr = Uint8Array.of(1, 2);
+const ab = u8Arr.buffer;
+console.log(ab); // ArrayBuffer(2)
+```
+
+**💫ArrayBuffer --> Uint8Array：**
+
+```js
+const ab = new ArrayBuffer(2);
+const u8Arr = new Uint8Array(ab);
+console.log(u8Arr); // Uint8Array(2) [0, 0, buffer: ArrayBuffer(2), byteLength: 2, byteOffset: 0, length: 2]
+```
+
+### ArrayBuffer与DataView
+
+**💫ArrayBuffer --> DataView：**
+
+```js
+const arrBuf = new ArrayBuffer(2);
+const dv = new DataView(arrBuf, 0);
+console.log(dv); // DataView(2)
+```
+
+**💫DataView --> ArrayBuffer：**
+
+```js
+const dv = new DataView(new ArrayBuffer(2), 0);
+const ab = dv.buffer;
+console.log(ab) // ArrayBuffer(2)
+```
+
+### ArrayBuffer与Blob
+
+**💫ArrayBuffer --> Blob：**
+
+```js
+const ab = new ArrayBuffer(2);
+const blob = new Blob([ab]);
+console.log(blob); // Blob {size: 2, type: ''}
+```
+
+**💫Blob --> ArrayBuffer：**
+
+```js
+const blob = new Blob(['a Hello world!'], { type: 'text/plain' });
+
+// 法1：使用Blob的arrayBuffer()
+const ab = await blob.arrayBuffer();
+console.log(ab); // ArrayBuffer(14)
+
+// 法2：借助FileReader的readAsArrayBuffer()
+const reader = new FileReader();
+reader.readAsArrayBuffer(blob, 'utf-8');
+reader.onload = function (e) {
+  // 这里会打印readAsArrayBuffer的结果
+  console.log(reader.result); // ArrayBuffer(14)
+};
+```
+
+### UintXXXArray与Blob
+
+**💫UintXXXArray --> Blob：**
+
+```js
+const u8 = Uint8Array.of(97, 32, 72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33);
+const blob = new Blob([u8]);
+console.log(blob); // Blob {size: 14, type: ''}
+```
+
+**💫Blob --> UintXXXArray：**
+
+```js
+const blob = new Blob(['a Hello world!'], { type: 'text/plain' });
+
+// 法1：1) 使用Blob的arrayBuffer()转成ArrayBuffer，2) 再new UintXXXArray()
+const ab = await blob.arrayBuffer(); // ArrayBuffer(14)
+const u8 = new Uint8Array(ab)
+console.log(u8); // Uint8Array(14) [97, 32, 72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, buffer: ArrayBuffer(14), byteLength: 14, byteOffset: 0, length: 14]
+
+// 法2：1) 借助FileReader的readAsArrayBuffer(), 2) 再new UintXXXArray()
+const reader = new FileReader();
+reader.readAsArrayBuffer(blob, 'utf-8');
+reader.onload = function (e) {
+  const u81 = new Uint8Array(reader.result);
+  console.log(u81); // Uint8Array(14) [97, 32, 72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, buffer: ArrayBuffer(14), byteLength: 14, byteOffset: 0, length: 14]
+};
+```
+
+### 字符串与Blob
+
+**💫字符串 --> Blob：**
+
+```js
+const blob = new Blob(['Hello World!'], {type: 'text/plain'});
+console.log(blob); // Blob {size: 12, type: 'text/plain'}
+```
+
+**💫Blob --> 字符串：**
+
+```js
+const blob = new Blob(['a Hello world!'], { type: 'text/plain' });
+
+// 法1：使用Blob的text()
+const ab = await blob.text();
+console.log(ab); // a Hello world!
+
+// 法2：借助FileReader的readAsArrayBuffer()
+const reader = new FileReader();
+reader.readAsText(blob, 'utf-8');
+reader.onload = function (e) {
+  // 这里会打印readAsText的结果
+  console.log(reader.result); // a Hello world!
+};
+```
+
+### ⭐DataURL(Base64)与Blob
+
+**💫DataURL --> Blob：**
+
+```js
+/* 思路：
+ * - 从base64数据中获取类型和base64字符串;
+ * - 利用atob方法，将base64字符串解码;
+ * - 将解码后的字符串转换为Uint8Array;
+ * - 最后转换为blob.
+ */
+function base64ToBlob(b64Data) {
+  return new Promise((resolve, reject) => {
+    // 从b64Data中获取类型、base64字段
+    const [mimeStr, b64Str] = b64Data.split(',');
+
+    // 转换成blob
+    let dB64Str = atob(b64Str),
+      mime = mimeStr.match(/:(.*?);/)[1],
+      n = dB64Str.length,
+      u8Arr = new Uint8Array(n);
+    while (n--) {
+      u8Arr[n] = dB64Str.charCodeAt(n)
+    }
+    resolve(new Blob([u8Arr], { type: mime }));
+  })
+}
+
+// 调用：
+const base64Data = 'data:application/octet-stream;base64,YWI=';
+base64ToBlob(base64Data).then(data => {
+  console.log(data); // Blob {size: 2, type: 'application/octet-stream'}
+});
+```
+
+**💫Blob --> DataURL：**
+
+```js
+/* 思路：
+ * - 从base64数据中获取类型和base64字符串;
+ * - 利用atob方法，将base64字符串解码;
+ * - 将解码后的字符串转换为Uint8Array;
+ * - 最后转换为blob.
+ */
+function blobToBase64(blobData) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(blobData);
+    fileReader.onload = e => {
+      resolve(e.target.result);
+    }
+    fileReader.onerror = () => {
+      reject(new Error('文件流异常'));
+    };
+  })
+}
+
+// 调用
+const blob = new Blob(['a Hello world!'], { type: 'text/plain' });
+const str = await blobToBase64(blob);
+console.log(str); // data:text/plain;base64,YSBIZWxsbyB3b3JsZCE=
+```
+
+### ⭐字符串与DataURL(Base64)
+
+**💫字符串 --> DataURL：**
+
+```js
+const str = 'ab';
+const dataURL = 'data:application/octet-stream;base64,' + btoa(str);
+console.log(dataURL); // data:application/octet-stream;base64,YWI=
+```
+
+**💫DataURL --> 字符串：**
+
+```js
+const dataURLStr = 'data:application/octet-stream;base64,YWI=';
+const str = atob(dataURLStr.split(',')[1]);
+console.log(str); // ab
+```
+
+### ⭐图片url --> Blob
+
+```js
+/*
+ 步骤：
+  - 构造一个img元素，将url赋给img;
+  - 等待图片加载完成;
+  - 构造一个canvas元素;
+  - 将img元素画到canvas上;
+  - 通过canvas的toBlob()将url转化为blob.
+*/
+function urlToBase64(url) {
+  return new Promise((resolve, reject) => {
+    let image = new Image();
+    // CORS 策略，会存在跨域问题https://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror
+    image.setAttribute("crossOrigin", 'anonymous');
+    image.src = url;
+    image.onload = function () {
+      let canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      // 将图片插入画布并开始绘制
+      canvas.getContext('2d').drawImage(image, 0, 0);
+      const result = canvas.toBlob((blob) => {
+        resolve(result);
+      }, 'image/png');
+      canvas = null;
+    };
+    // 图片加载失败的错误处理
+    image.onerror = () => {
+      reject(new Error('图片流异常'));
+    }
+  })
+}
+
+// 调用：
+
+let imgUrL = `./test.png`;
+urlToBase64(imgUrL).then(res => {
+  // 转化后的base64图片地址
+  console.log('base64', res);
+})
+```
+
+### ⭐图片url --> DataUrl(Base64)
+
+```js
+/*
+ 步骤：
+  - 构造一个img元素，将url赋给img;
+  - 等待图片加载完成;
+  - 构造一个canvas元素;
+  - 将img元素画到canvas上;
+  - 通过canvas的api将url转化为base64.
+*/
+function urlToBase64(url) {
+  return new Promise((resolve, reject) => {
+    let image = new Image();
+    // CORS 策略，会存在跨域问题https://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror
+    image.setAttribute("crossOrigin", 'anonymous');
+    image.src = url;
+    image.onload = function () {
+      let canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      // 将图片插入画布并开始绘制
+      canvas.getContext('2d').drawImage(image, 0, 0);
+      const result = canvas.toDataURL('image/png');
+      resolve(result);
+      canvas = null;
+    };
+    // 图片加载失败的错误处理
+    image.onerror = () => {
+      reject(new Error('图片流异常'));
+    }
+  })
+}
+
+// 调用：
+
+let imgUrL = `./test.png`; // 在同级目录下新建一个图片
+urlToBase64(imgUrL).then(res => {
+  // 转化后的base64图片地址
+  console.log('base64', res);
+})
+```
 
 ## 5. 使用场景
 
@@ -566,10 +879,17 @@ BlobURL基本用法与DataUrl相同，都可以通过将其放在地址栏中进
       };
     </script>
   </body>
-
 ```
 
 ### 图片压缩
+
+上传头像时，如果图片太大，就会涉及图片压缩。这种场景我们的思路如下：
+
+- 拿到用户选择的图片(blob类型)；
+- 利用FileReader的readAsDataURL()，将blob图片转换为base64；
+- 将base64赋值给img标签的src，再将img画到canvas上；
+- 利用canvas的toDataURL()进行图片压缩，得到压缩后的base64；
+- 最后将压缩后的base64转成blob，调用后端接口。
 
 **compress.js：**
 
@@ -650,7 +970,7 @@ function compress(base64, quality, mimeType) {
 
 ### 分片上传
 
-```js
+```html
 <body>
     <input type="file" name="file" onchange="selfile();" />
 
@@ -708,6 +1028,22 @@ server {
 
 ```
 
+### 调用后端接口时，返回Blob类型的数据
+
+```js
+// 使用XHR
+const downloadBlob = (url, callback) => {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.responseType = 'blob'; // 不论使用什么去调后端接口，一定记得将responseType设为blob
+  xhr.onload = () => {
+    callback(xhr.response)
+  }
+}
+
+// 后续可以使用URL.createObjectURL生成blobURL，进行展示。（比如向后端调图片）
+```
+
 ## 6. 参考
 
 - [聊聊JS的二进制家族：Blob、ArrayBuffer和Buffer](https://zhuanlan.zhihu.com/p/97768916)
@@ -715,3 +1051,4 @@ server {
 - [「多图预警」那些年，被blob虐过的程序猿觉醒了！](https://juejin.cn/post/6916675943343849479)
 - [我用一文总结File base64 Blob对象之间切换自如](https://juejin.cn/post/7017575277102366733)
 - [图像RGB值、灰度值、像素值的关系](https://blog.csdn.net/weixin_43042467/article/details/107047960)
+- [我用一文总结File base64 Blob对象之间切换自如](https://juejin.cn/post/7017575277102366733#heading-9)
