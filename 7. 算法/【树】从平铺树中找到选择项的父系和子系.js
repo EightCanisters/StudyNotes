@@ -476,36 +476,57 @@ const testTree = {
 
 const selectedIds = ['1-1', '2-1'];
 
+//1. 找到目标节点的父系； 2. 找到目标节点的子系
 const treeFilter = (tree, ids) => {
   const finalTree = {};
-  //1. 找到目标节点的父系； 2. 找到目标节点的子系
-  const treeFilterById = (tree, selectedId) => {
-    const selectedItem = tree[selectedId];
-    finalTree[selectedId] = selectedItem;
 
-    // 找父系
-    if (selectedItem.pId) {
-      const father = tree[selectedItem.pId];
-      finalTree[selectedItem.pId] = father;
-      if (father.pId) treeFilterById(tree, father.pId);
-    }
-
-    // 找子系
-    if (
-      selectedItem.hasChildren &&
-      selectedItem.nodes &&
-      selectedItem.nodes.length > 0
-    ) {
-      selectedItem.nodes.forEach((chId) => {
-        const children = tree[chId];
-        finalTree[chId] = children;
-        if (children.hasChildren) treeFilterById(tree, children.nodes);
-      });
-    }
+  const copyChildren = (tree, children) => {
+    children.forEach((chId) => {
+      const child = tree[chId];
+      finalTree[chId] = child;
+      if (child.hasChildren || (child.nodes && child.nodes.length > 0))
+        copyChildren(tree, child.nodes);
+    });
+  };
+  const copyFather = (tree, pId) => {
+    const father = tree[pId];
+    finalTree[pId] = father;
+    if (father.pId) copyFather(tree, father.pId);
   };
 
-  ids.forEach((id) => {
-    treeFilterById(tree, id);
+  ids.forEach((selectedId) => {
+    const selectedItem = tree[selectedId];
+    finalTree[selectedId] = selectedItem;
+    //找父系
+    if (selectedItem.pId) {
+      copyFather(tree, selectedItem.pId);
+    }
+    // 找子系
+    if (
+      selectedItem.hasChildren ||
+      (selectedItem.nodes && selectedItem.nodes.length > 0)
+    ) {
+      copyChildren(tree, selectedItem.nodes);
+    }
+  });
+
+  // 移除每个节点的子项中不存在的项
+  Object.keys(finalTree).forEach((nodeId) => {
+    const node = finalTree[nodeId];
+    if (node.hasChildren || (node.nodes && node.nodes.length)) {
+      const chNodes = [];
+      node.nodes.forEach((chNodeId, idx) => {
+        if (finalTree[chNodeId]) {
+          chNodes.push(chNodeId);
+        }
+      });
+      if (chNodes.length == 0) {
+        delete node.nodes;
+        node.hasChildren = false;
+      } else {
+        node.nodes = chNodes;
+      }
+    }
   });
 
   return finalTree;
