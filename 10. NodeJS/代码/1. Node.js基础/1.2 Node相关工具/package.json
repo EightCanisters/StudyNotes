@@ -1,0 +1,19 @@
+{
+  "name": "nodetest",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "view": "node view.js",
+    "pname": "echo $npm_package_name",
+    "tenv": "env"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "config": {
+    "port": "8080"
+  },
+  "author": "",
+  "license": "ISC"
+}
