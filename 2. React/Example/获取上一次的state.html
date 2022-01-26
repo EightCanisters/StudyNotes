@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="main"></div>
+</body>
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+  // useRef + useEffect获取
+  const RefDemo = () => {
+    const [count, setCount] = React.useState(0);
+    const preCountRef = React.useRef();
+    React.useEffect(() => {
+      preCountRef.current = count;
+    })
+    const preCount = preCountRef.current;
+    return (
+      <div>
+        <h1>借助useRef</h1>
+        <button onClick={() => setCount(count => ++count)}>加1</button>
+        <button onClick={() => setCount(count => --count)}>减1</button>
+        <div>现在的值：{count}</div>
+        <div>上一次的值：{preCount}</div>
+      </div>
+    )
+  }
+
+  // useReducer + useRef获取
+  const ReducerDemo = () => {
+    const previewRef = React.useRef();
+    function reducer(state, action) {
+      previewRef.current = state.count;
+      switch (action.type) {
+        case 'increment':
+          return { count: state.count + 1 }
+        case 'decrement':
+          return { count: state.count - 1 }
+        default:
+          throw new Error();
+      }
+    }
+    const [count, dispatch] = React.useReducer(reducer, { count: 0 })
+    const preCount = previewRef.current;
+    return (
+      <div>
+        <h1>借助useRef</h1>
+        <button onClick={() => dispatch({ type: 'increment' })}>加1</button>
+        <button onClick={() => dispatch({ type: 'decrement' })}>减1</button>
+        <div>现在的值：{count.count}</div>
+        <div>上一次的值：{preCount}</div>
+      </div>
+    )
+  }
+
+  // useState + useRef获取
+  const StateDemo = () => {
+    const [count, setCount] = React.useState(0);
+    const preCountRef = React.useRef();
+
+    const add = (isAdd) => {
+      setCount(pre => {
+        preCountRef.current = pre;
+        return isAdd ? ++pre : --pre;
+      })
+    }
+
+    const preCount = preCountRef.current;
+    return (
+      <div>
+        <h1>借助useRef</h1>
+        <button onClick={() => add(true)}>加1</button>
+        <button onClick={() => add(false)}>减1</button>
+        <div>现在的值：{count}</div>
+        <div>上一次的值：{preCount}</div>
+      </div>
+    )
+  }
+
+  const App = () => {
+    return (
+      <div>
+        <RefDemo />
+        <hr />
+        <ReducerDemo />
+        <hr />
+        <StateDemo />
+      </div>
+    )
+  }
+  ReactDOM.render(<App />, document.querySelector('#main'));
+</script>
+
+</html>
