@@ -13,7 +13,7 @@ function myInstanceof(left, right) {
   let objPrototype = left.__proto__;
   // 判断构造函数的原型是否出现在实例对象的原型链上
   while (true) {
-    if(objPrototype === null) {
+    if(objPrototype === null || objPrototype === undefined) {
       return false;
     }
     if(objPrototype === consPrototype) {
