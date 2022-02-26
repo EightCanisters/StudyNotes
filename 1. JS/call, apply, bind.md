@@ -131,7 +131,7 @@ Function.prototype.myBind = function(context, ...args) {
   return function newFn(...newArgs) {
     // 因为返回了一个函数，我们可以 new newFn()，所以需要判断
     // 对于 new 的情况来说，不会被任何方式改变 this
-    if(fn instanceof newFn) {
+    if(this instanceof newFn) { // new newFn()时，this指向new出来的实例
       return new fn(...args, ...newArgs);
     }
     return fn.apply(context, [...args, ...newArgs]);
