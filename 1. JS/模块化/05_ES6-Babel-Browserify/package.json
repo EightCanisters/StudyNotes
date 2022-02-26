@@ -2,13 +2,19 @@
   "name": "05_es6-babel-browserify",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./js/src2/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build2": "babel js/src2 -d js/lib2 & browserify js/lib2/main.js -o js/lib2/bundle2.js",
+    "build1": "babel js/src -d js/lib & browserify js/lib/app.js -o js/lib/bundle.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "babel-preset-es2015": "^6.24.1"
-  }
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "browserify": "^17.0.0"
+  },
+  "type": "module"
 }
