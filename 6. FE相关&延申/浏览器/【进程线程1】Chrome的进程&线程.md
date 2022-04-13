@@ -82,6 +82,8 @@
 
 #### 3.2.1. 每个进程下都含有的线程
 
+> IPC：Inter Process Communication，进程间通信，需要通过IPC机制来进行。
+
 [Chromium官方文档](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/threading_and_tasks.md#threads)是这样描述的：  
 ![](https://gitee.com/ahuang6027/blog-images/raw/master/images/threads-of-chromium.png)
 
