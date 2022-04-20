@@ -106,9 +106,24 @@
 
 #### 3.2.2. Renderer进程下的线程
 
-> 🤦‍♀️🤦‍♀️其实Renderer进程下的线程我不是很确定，没有找到官方文档==  
-> 只是[Inside look at modern web browser(part1 - part4)](https://developers.google.com/web/updates/2018/09/inside-browser-part2)中说到有合成器线程、栅格化线程、主线程。然后其他的文章基本都说到了有EventLoop相关的那几个线程，所以我就放到一起了。。。  
+> 🤦‍♀️🤦‍♀️其实Renderer进程下的线程我不是很确定，没有找到最近的官方文档==  
+> 只是[Inside look at modern web browser(part1 - part4)](https://developers.google.com/web/updates/2018/09/inside-browser-part2)中说到有合成器线程、栅格化线程、主线程，包括DevTools里也只显示出来这几个线程。但很多文章基本都说到了有EventLoop相关的那几个线程。所以接下来我就以DevTools的为准，其余的也提一嘴。。。  
 > 跪求伙伴们指正🙏🙏
+
+##### 3.2.2.1. 说法1：从DevTools看线程（个人认为比较准确）
+
+![从DevTools - Performance看线程](https://gitee.com/ahuang6027/blog-images/raw/master/images/process-devtool-performance.png)
+
+上图中主要有三个线程：
+
+- **主线程**：它执行了许多任务，包括：
+  - HTML/CSS的解析、布局(Layout)，绘画(Paint)、分层；
+  - JavaScript的解析和执行。
+  - 【❗注意】在说法2中，JS的解析执行是由JS引擎线程负责的，而JS引擎线程与主线程互斥。而我们知道，JS会阻塞文档的解析，在当前的说法1中，我们可以理解成：主线程资源有限，只能分配给其中一个任务执行（具体可以看[这篇文章](https://mp.weixin.qq.com/s/nZd3846YTBbpj8AYgs1jqQ)）。
+- **合成器线程(compositor thread)**：进行分块操作，同时也负责接收用户的滚动、输入，分发回调事件等。
+- **栅格化线程**：将绘制命令转换为位图或者GPU能识别的纹理。
+
+##### 3.2.2.2. 说法2（个人认为过时了，但很多思想还是没变的，eventloop也可以从这方面去理解）
 
 - **GUI渲染线程(主线程)**：
   - 只有一个；
@@ -130,8 +145,6 @@
 - **异步Http请求线程**：
   - 处理`XMLHttpRequest`请求；
   - 当检测到`XMLHttpRequest`状态变更时(有结果返回)，并且设置有回调函数，异步Http请求线程就会**通知事件触发线程**，事件触发线程将回调任务放入**JS引擎的任务队列中等待执行**。
-- **合成器线程(compositor thread)**：进行分块操作，同时也负责接收用户的滚动、输入，分发回调事件等。
-- **栅格化线程**：将绘制命令转换为位图或者GPU能识别的纹理。
 
 #### 3.2.3. Browser进程下的线程
 
@@ -143,7 +156,7 @@
 
 整个Chrome的进程和线程，可以总结为下图：
   
-![Chrome的进程&线程](https://gitee.com/ahuang6027/blog-images/raw/master/images/processes-and-threads-of-chrome.png)
+![Chrome的进程&线程](https://gitee.com/ahuang6027/blog-images/raw/master/images/process-and-threads-structure.png)
 
 tip：原脑图在[这里](https://www.yuque.com/docs/share/4937f2cb-0c37-4849-bf8a-b85eed335c25)
 
