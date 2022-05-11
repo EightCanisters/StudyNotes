@@ -1,0 +1,21 @@
+{
+  "name": "studynotes",
+  "version": "1.0.0",
+  "description": "前端学习笔记",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FE-Huang/StudyNotes.git"
+  },
+  "keywords": [
+    "前端"
+  ],
+  "author": "FEHuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FE-Huang/StudyNotes/issues"
+  },
+  "homepage": "https://github.com/FE-Huang/StudyNotes#readme"
+}
