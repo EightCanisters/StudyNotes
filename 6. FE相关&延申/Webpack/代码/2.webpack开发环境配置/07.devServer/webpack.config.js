@@ -1,4 +1,3 @@
-
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -6,7 +5,7 @@ module.exports = {
   entry: './src/indes.js',
   output: {
     filename: 'built.js',
-    path: resolve(__dirname, 'build')
+    path: resolve(__dirname, 'build'),
   },
   module: {
     rules: [
@@ -14,26 +13,26 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
-            loader: 'css-loader'
-          }
-        ]
+            loader: 'css-loader',
+          },
+        ],
       },
       {
         exclude: /\.(css|js|html|png|gif|jpg)$/,
         loader: 'file-loader',
         options: {
-          name: '[hash:10].[ext]'
-        }
-      }
-    ]
+          name: '[hash:10].[ext]',
+        },
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
-    })
+      template: './src/index.html',
+    }),
   ],
   mode: 'development',
   /**
@@ -43,9 +42,9 @@ module.exports = {
    *    如何启动：npx webpack serve(webpack-cli: 4.x), npx webpack-dev-server(webpack-cli 3.x);
    */
   devServer: {
-    contentBase: resolve(__dirname, 'build'), // 项目构建后的路径
+    static: resolve(__dirname, 'build'), // 项目构建后的路径, webpack4是contentBase
     compress: true, // 是否使用gzip压缩
     port: 3000, // 设置端口号
-    open: true // 是否自动打开浏览器
-  }
-}
+    open: true, // 是否自动打开浏览器
+  },
+};
