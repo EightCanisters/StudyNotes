@@ -51,8 +51,8 @@
 - 伪类(:)
   - `:`支持按照未被包含在文档树中的**状态信息**来选择元素。
   - [MDN标准伪类索引](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Pseudo-classes#%E6%A0%87%E5%87%86%E4%BC%AA%E7%B1%BB%E7%B4%A2%E5%BC%95)
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/20210918143342.png#id=b84mg&originHeight=717&originWidth=944&originalType=binary&ratio=1&status=done&style=none)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/20210918143342.png#id=b84mg&originHeight=717&originWidth=944&originalType=binary&ratio=1&status=done&style=none)
 - 伪元素(::)
   - `::`用于表示无法用 HTML 语义表达的**实体**。
   - [MDN标准为元素索引](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Pseudo-elements#%E6%A0%87%E5%87%86%E4%BC%AA%E5%85%83%E7%B4%A0%E7%B4%A2%E5%BC%95)
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/20210918161009.png#id=Kq37J&originHeight=180&originWidth=898&originalType=binary&ratio=1&status=done&style=none)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/20210918161009.png#id=Kq37J&originHeight=180&originWidth=898&originalType=binary&ratio=1&status=done&style=none)

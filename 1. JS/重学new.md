@@ -34,7 +34,7 @@ console.log('zs说Hi：', zs.sayHi());
 ```
 
 打印结果如下：  
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/new-构造函数无返回值.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/new-构造函数无返回值.png)
 
 从打印结果可以看出：
 
@@ -91,7 +91,7 @@ console.log('zs说Hi：', zs.sayHi());
 ```
 
 打印结果：  
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/new-构造函数返回对象.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/new-构造函数返回对象.png)
 
 从打印结果可以看出：
 构造函数如果返回值为对象，那么这个返回值会被正常使用，`new`将无效。
@@ -143,6 +143,6 @@ create(Person, '李四', '女');
 ```
 
 打印结果：  
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/手写create.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/手写create.png)
 
 ✌，看起来跟`new`一致呢~

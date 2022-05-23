@@ -1,6 +1,6 @@
 ## 1. HRO登录流程图
 
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/hro-%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B.png#id=E24kg&margin=%5Bobject%20Object%5D&originHeight=706&originWidth=1150&originalType=binary&ratio=1&status=done&style=shadow)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/hro-%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B.png#id=E24kg&margin=%5Bobject%20Object%5D&originHeight=706&originWidth=1150&originalType=binary&ratio=1&status=done&style=shadow)
 
 ## 2. HRO完整登录流程
 
@@ -256,4 +256,4 @@ GET /user/oauth2_login?redirect_uri=<redirect_uri>&&code=<code>
 
 - token获取成功，存储到localStorage和vueX中，进入网站内部。在以后的api请求中，需在头部Authorization字段上添加该token：
 
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/sso-api-with-token.png#id=obAMw&margin=%5Bobject%20Object%5D&originHeight=342&originWidth=708&originalType=binary&ratio=1&status=done&style=shadow)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/sso-api-with-token.png#id=obAMw&margin=%5Bobject%20Object%5D&originHeight=342&originWidth=708&originalType=binary&ratio=1&status=done&style=shadow)

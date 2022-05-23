@@ -2,7 +2,7 @@
 
 > 工作中遇到需要将图片url转换为base64的场景，搜索出来一个方法👇  
 >
-> ![function urlToBase64](https://gitee.com/ahuang6027/blog-images/raw/master/images/urlToBase64.png)
+> ![function urlToBase64](http://rc9frlwp7.hn-bkt.clouddn.com/urlToBase64.png)
 >
 > 这个方法使用了canvas, dataURL相关的知识。顺藤摸瓜找下去，就出现了这篇文章。
 
@@ -114,7 +114,7 @@ File 对象没有自己的实例方法，由于继承了 Blob 对象，因此可
 
 #### (4) File的获取
 
-![File的获取](https://gitee.com/ahuang6027/blog-images/raw/master/images/file的来源.png)
+![File的获取](http://rc9frlwp7.hn-bkt.clouddn.com/file的来源.png)
 
 ##### a. 选择文件返回的FileList对象
 
@@ -252,7 +252,7 @@ var v3 = new Int16Array(b, 2, 2);
 ```
 
 上面的代码里变量的数据结构如下表所示：
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/arraybuffer-exp.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/arraybuffer-exp.png)
 
 ##### (4) 属性
 
@@ -488,7 +488,7 @@ atob('PHhtbD5mb288L3htbD4=') // "<xml>foo</xml>"
 ```
 
 2）结果：
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/dataURL-canvas.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/dataURL-canvas.png)
 
 如果我们将前面的返回结果`data:text/xml;base64,PHhtbD5mb288L3htbD4=`放在浏览器的地址栏中，可以看到canvas的内容。
 
@@ -520,7 +520,7 @@ BlobURL基本用法与DataUrl相同，都可以通过将其放在地址栏中进
 ## 4. 转换关系
 
 祭出大图👇
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/blob转换.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/blob转换.png)
 
 ### 字符串与Uint8Array
 

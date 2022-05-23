@@ -14,7 +14,7 @@
 ### 兼容性
 
 查看[兼容性](https://caniuse.com/?search=columns)：
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/瀑布流colums.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/瀑布流colums.png)
 
 ### 语法
 
@@ -32,7 +32,7 @@ column-span: all; // 属性规定元素应跨越多少列。
 
 ### 效果
 
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/瀑布流效果.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/瀑布流效果.png)
 
 ### 代码
 

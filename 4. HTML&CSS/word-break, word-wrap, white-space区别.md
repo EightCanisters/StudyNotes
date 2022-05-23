@@ -6,10 +6,10 @@
 
 ### 1.1 测试代码和默认效果
 
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard10.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard10.png)
 
 只加了一个宽度和边框，没有任何其它样式：
-![avatar](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard2.png)
+![avatar](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard2.png)
 
 __默认效果__：
 
@@ -26,31 +26,31 @@ __默认效果__：
 
 #### 1.2.2 white-space: nowrap (左图为最初的效果，右图加了white-space:nowrap)
 
-![avatar](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard3.png)
+![avatar](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard3.png)
 
 __结论：__ 使文本不能自动换行，\<br/>还是可以换行。可以将其理解为“永不换行”
 
 #### 1.2.3 white-space: pre
 
-![avatar](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard4.png)
+![avatar](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard4.png)
 
 __结论：__ pre是preserve(保留)的缩写。保留原有的所有空格和换行符，自动换行失效。
 
 #### 1.2.4 white-space:pre-wrap
 
-![avatar](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard5.png)
+![avatar](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard5.png)
 
 __结论：__ pre-wrap == pre + wrap；保留原有的所有空格和换行符，且可以自动换行
 
 #### 1.2.5 white-space:pre-line
 
-![avatar](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard6.png)
+![avatar](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard6.png)
 
 __结论：__ line == new line， pre-line == preserve newline + wrap。空格被合并，换行符依然起作用，自动换行还在
 
 #### 1.2.6 总结
 
-![avatar](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard7.png)
+![avatar](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard7.png)
 
 ### 1.3 word-break: normal | break-all | keep-all | break-word
 
@@ -58,13 +58,13 @@ __结论：__ line == new line， pre-line == preserve newline + wrap。空格�
 
 #### 1.3.1 word-break: keep-all
 
-![avatar](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard8.png)
+![avatar](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard8.png)
 
 __结论：__ CJK(指中文、日文、韩文)文本不断行。 Non-CJK 文本表现同 normal。可以理解为“只有空格可以触发自动换行”。
 
 #### 1.3.2 word-bread: break-all
 
-![avatar](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard9.png)
+![avatar](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard9.png)
 
 __结论：__ 所有单词碰到边界一律拆分换行
 
@@ -79,6 +79,6 @@ __结论：__ 它的效果是word-bread: normal + overflow-wrap:anywhere，不�
 
 #### 1.4.1 word-wrap: break-word
 
-![avatar](https://gitee.com/ahuang6027/blog-images/raw/master/images/clipboard10.png)
+![avatar](http://rc9frlwp7.hn-bkt.clouddn.com/clipboard10.png)
 
 结论：只有当一个单词一整行都显示不下时，才会拆分换行该单词

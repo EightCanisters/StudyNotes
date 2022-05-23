@@ -37,7 +37,7 @@ linux与Windows的目录结构对比如下图所示，从图中可以看出Linux
 - Linux系统的目录起点都是从“/”根开始的
 - 根下面的目录是一个有层次的树状结构
 
-![linux目录介绍](https://gitee.com/ahuang6027/blog-images/raw/master/images/linux-目录.png)
+![linux目录介绍](http://rc9frlwp7.hn-bkt.clouddn.com/linux-目录.png)
 
 | **目录** | **说明** |
 | --- | --- |
@@ -547,7 +547,7 @@ find命令用于查找目录下的文件，同时还可以调用其他命令执�
 
 **👀语法格式：**  
 
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/libux-find.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/libux-find.png)
 
 **🧐说明：**  
 

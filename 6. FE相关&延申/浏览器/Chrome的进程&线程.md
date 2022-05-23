@@ -58,7 +58,7 @@
 > 除了下面列出来的进程，Chrome其实还有很多其他进程在工作，例如扩展进程（Extension Process）、工具进程（Utility Process）。  
 > 如果你想看一下你的Chrome浏览器现在有多少个进程在跑可以点击浏览器右上角的更多按钮，选择更多工具和任务管理器。
 
-![Chrome的多进程](https://gitee.com/ahuang6027/blog-images/raw/master/images/process-of-chrome.png)
+![Chrome的多进程](http://rc9frlwp7.hn-bkt.clouddn.com/process-of-chrome.png)
 
 - **浏览器进程（Browser Process，很多文章又称“主进程”）**：
   - 浏览器的主进程，只有一个；
@@ -85,7 +85,7 @@
 > IPC：Inter Process Communication，进程间通信，需要通过IPC机制来进行。
 
 [Chromium官方文档](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/threading_and_tasks.md#threads)是这样描述的：  
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/threads-of-chromium.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/threads-of-chromium.png)
 
 翻译一下，每个Chrome进程中都含有：
 
@@ -102,7 +102,7 @@
 > 也许你跟我一样疑惑，Blink是个啥？？？（这里推荐阅读[你能分得清楚 Chromium, V8, Blink, Gecko, WebKit 之间的区别吗？](https://juejin.cn/post/6844904055236460558)）
 > **Blink是Google Chrome浏览器的渲染引擎，V8是Blink内置的JS引擎。**  
 > Blink干了这些事：  
-> ![](https://gitee.com/ahuang6027/blog-images/raw/master/images/what-does-blink-does.png)
+> ![](http://rc9frlwp7.hn-bkt.clouddn.com/what-does-blink-does.png)
 
 #### 3.2.2. Renderer进程下的线程
 
@@ -112,7 +112,7 @@
 
 ##### 3.2.2.1. 说法1：从DevTools看线程（个人认为比较准确）
 
-![从DevTools - Performance看线程](https://gitee.com/ahuang6027/blog-images/raw/master/images/process-devtool-performance.png)
+![从DevTools - Performance看线程](http://rc9frlwp7.hn-bkt.clouddn.com/process-devtool-performance.png)
 
 上图中主要有三个线程：
 
@@ -156,7 +156,7 @@
 
 整个Chrome的进程和线程，可以总结为下图：
   
-![Chrome的进程&线程](https://gitee.com/ahuang6027/blog-images/raw/master/images/process-and-threads-structure.png)
+![Chrome的进程&线程](http://rc9frlwp7.hn-bkt.clouddn.com/process-and-threads-structure.png)
 
 tip：原脑图在[这里](https://www.yuque.com/docs/share/4937f2cb-0c37-4849-bf8a-b85eed335c25)
 
@@ -166,7 +166,7 @@ tip：原脑图在[这里](https://www.yuque.com/docs/share/4937f2cb-0c37-4849-b
 
 - 从进程&线程看页面渲染：
   有位[大佬](http://marswiz.com/blog/2021/09/20/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B/)总结成了图，我在其基础上改成适应说法1的了：  
-  ![进程&线程-渲染](https://gitee.com/ahuang6027/blog-images/raw/master/images/process-parse-render-pipeline.png)
+  ![进程&线程-渲染](http://rc9frlwp7.hn-bkt.clouddn.com/process-parse-render-pipeline.png)
 - 从进程&线程看EventLoop。
 
 ## 5. 参考

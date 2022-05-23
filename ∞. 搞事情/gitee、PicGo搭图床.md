@@ -14,14 +14,14 @@
 - 初始化一个readme文件；
 - 选择单分支模型；
 
-  ![](https://gitee.com/ahuang6027/blog-images/raw/master/images/bed1.png)
+  ![](http://rc9frlwp7.hn-bkt.clouddn.com/bed1.png)
 
 ### 获取token
 
 - 点击`头像 -> 设置 -> 私人令牌 -> 生成私人令牌`，取消全选，只手动勾选projects；
 - 注意：这个令牌只会生成一次，需妥善保存下来，后边会用到。
 
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/bed2.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/bed2.png)
 
 ## 设置PicGo
 
@@ -34,7 +34,7 @@
 - 安装插件：
   - 选择`插件设置`，搜索：gitee，找到搜索结果的`gitee-uploader`插件，点击安装；
   
-    ![](https://gitee.com/ahuang6027/blog-images/raw/master/images/bed3.png)
+    ![](http://rc9frlwp7.hn-bkt.clouddn.com/bed3.png)
 
   - 注意：这个插件需要NodeJS环境；
 - 配置PicGo: 找到图床设置下的gittee选项进行配置（这里没装好插件就没这个选项）。
@@ -45,7 +45,7 @@
   - customPath：提交消息，可不填；
   - customURL：自定义地址，可不填。
   
-  ![](https://gitee.com/ahuang6027/blog-images/raw/master/images/bed4.png)
+  ![](http://rc9frlwp7.hn-bkt.clouddn.com/bed4.png)
 
 ## 可以使用啦
 

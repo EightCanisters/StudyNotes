@@ -59,7 +59,7 @@ input[type="search"]::-webkit-search-cancel-button {
 ### 3. Normalize.css不会让你的调试工具变的杂乱
 
 使用Reset最让人困扰的地方莫过于在浏览器调试工具中大段大段的继承链，如下图所示。在Normalize.css中就不会有这样的问题，因为在我们的准则中对多选择器的使用时非常谨慎的，我们仅会有目的地对目标元素设置样式。
-![](<https://gitee.com/ahuang6027/blog-images/raw/master/images/20210927154800.pn>
+![](<http://rc9frlwp7.hn-bkt.clouddn.com/20210927154800.pn>
 
 ### 4. Normalize.css是模块化的
 

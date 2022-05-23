@@ -3,7 +3,7 @@
 ES6 提供了新的数据结构`Set`，它**类似于数组**。`Set`对象允许你存储任何类型的**唯一**值，无论是**原始值**或者是**对象引用**。
 
 先来瞅瞅Set的结构：  
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/Set结构.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/Set结构.png)
 
 ### 1.1. Set的基本使用
 
@@ -228,7 +228,7 @@ set = new Set(Array.from(set, val => val * 2));
 `WeakSet`对象允许你将弱保持对象存储在一个集合中。它的结构与`Set`类似，也是不重复的值的集合。
 
 先来瞅瞅结构：
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/WeakSet结构.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/WeakSet结构.png)
 
 ### 2.1. `WeakSet`与`Set`的区别
 
@@ -292,7 +292,7 @@ ws.has(window);    // false
 `Map`对象保存键值对，并且**能够记住键的原始插入顺序**。**任何值(对象或者原始值)** 都可以作为一个键或一个值。
 
 先来瞅瞅它的结构：  
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/Map结构.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/Map结构.png)
 
 ### 3.1. Map的基本使用
 
@@ -652,7 +652,7 @@ jsonToMap('[[true,7],[{"foo":3},["abc"]]]')
 `WeakMap`结构与`Map`结构类似，也是用于生成键值对的集合。
 
 先来瞅瞅它的结构：  
-![](https://gitee.com/ahuang6027/blog-images/raw/master/images/WeakMap结构.png)
+![](http://rc9frlwp7.hn-bkt.clouddn.com/WeakMap结构.png)
 
 ### 4.1. WeakMap与Map的区别
 
