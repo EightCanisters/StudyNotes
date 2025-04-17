@@ -1,0 +1,10 @@
+## write()-普通写入:
+hello world
+hello python
+hello file
+
+
+## writelines()-一次性写入多行:
+hello world
+hello python
+hello file
